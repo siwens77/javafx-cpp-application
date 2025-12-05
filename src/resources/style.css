@@ -1,0 +1,123 @@
+.bodybg1{
+    -fx-background-image: url("/resources/images/background.png");
+    -fx-background-size: 100% 100%;
+}
+
+.bodybg2{
+    -fx-background-image: url("/resources/images/cleanB.png");
+    -fx-background-size: 100% 100%;
+}
+
+.bgINF {
+    -fx-background-image: url("/resources/images/grass.png"); /* your grass image */
+    -fx-background-repeat: repeat;           /* repeat horizontally and vertically */
+
+}
+
+
+
+#PlayB {
+    -fx-font-family: "Kiddosy free";
+    -fx-letter-spacing: 2px;
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #e48c11 0%, #ac721b 100%),
+        #d9a31a,
+        #d7d09b,
+        radial-gradient(center 50% 50%, radius 100%, #ffd500, #d8af4f);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 3.9em;
+}
+
+#PlayB:hover {
+    -fx-background-color: 
+    linear-gradient(from 0% 93% to 0% 100%, #e48c11 0%, #ac721b 100%),
+        #d9a31a,
+        #d7d09b,
+        radial-gradient(center 50% 50%, radius 100%, #eec709, #c6a149);
+}
+
+
+#FightB {
+    -fx-font-family: "Kiddosy free";
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: 
+        linear-gradient(from 0% 93% to 0% 100%, #e48c11 0%, #ac721b 100%),
+        #d9a31a,
+        #d7d09b,
+        radial-gradient(center 50% 50%, radius 100%, #ffd500, #d8af4f);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 2.4em;
+}
+
+#FightB:hover{
+    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #e48c11 0%, #ac721b 100%),
+    #d9a31a,
+    #d7d09b,
+    radial-gradient(center 50% 50%, radius 100%, #f2cb07, #d8af4f);
+}
+
+
+
+.my-input {
+    -fx-background-color: rgb(245, 255, 244);
+    -fx-text-fill: rgb(36, 35, 42);
+    -fx-font-family: "Kiddosy free";
+    -fx-font-size: 16px;
+    -fx-padding: 8 16 8 16; 
+    -fx-min-height: 40px;
+    -fx-border-radius: 4;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 3, 0, 0, 1);
+    -fx-focus-color: rgb(34,139,34);    ;
+    -fx-faint-focus-color: transparent;
+}
+
+.my-input:focused {
+    -fx-border-color: rgb(34,139,34);    ;
+}
+
+
+.my-inputStrength {
+    -fx-background-color: rgb(255, 247, 247);
+    -fx-text-fill: rgb(36, 35, 42);
+    -fx-font-size: 16px;
+    -fx-font-family: "Kiddosy free";
+    -fx-padding: 8 16 8 16; 
+    -fx-min-height: 40px;
+    -fx-border-radius: 4;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 3, 0, 0, 1);
+    -fx-focus-color: rgb(146, 2, 2);    ;
+    -fx-faint-focus-color: transparent;
+}
+
+.my-inputStrength:focused {
+    -fx-border-color: rgba(255, 0, 0, 0.564);    ;
+}
+
+
+.closeB {
+    -fx-background-color: 
+    radial-gradient(center 50% 50%, radius 100%, #ffd500, #d8af4f);
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-pref-width: 2em;
+    -fx-pref-height: 2em;
+    -fx-background-radius: 50%;
+    -fx-cursor: hand;
+}
+
+
+.closeB:hover {
+    -fx-background-color: 
+    radial-gradient(center 50% 50%, radius 100%, #f2cb07, #d8af4f);
+}

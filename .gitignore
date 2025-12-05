@@ -2,7 +2,8 @@
 run.sh
 #my vscode setup
 .vscode/
-
+#all jar files
+lib/
 #all binaries from java compiled files
 bin/
 #some mac shi

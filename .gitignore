@@ -7,4 +7,4 @@ lib/
 #all binaries from java compiled files
 bin/
 #some mac shi
-.DC_Store
+.DS_Store

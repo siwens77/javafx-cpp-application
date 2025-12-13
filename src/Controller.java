@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
@@ -85,20 +87,24 @@ public class Controller {
     
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String line0 = br.readLine();//TODO: set somewhere hero health etc
-
-
                 String line1 = br.readLine();
-                String[] words = line1.split(" ");
-                String health = words.length > 0 ? words[0] : "";
-                String power = words.length > 0 ? words[1] : "";
-                String speed = words.length > 0 ? words[2] : "";
-                Platform.runLater(() -> {
-                    controller.healerHealthText.setText(health);
-                    controller.healerSpeedText.setText(speed);
-                    controller.healerPowerText.setText(power);
-                });
                 String line2 = br.readLine();
+                String line3 = br.readLine();
+                new PrintWriter(filePath).close();
+
+                String[] words1 = line1.split(" ");
                 String[] words2 = line2.split(" ");
+                String[] words3 = line3.split(" ");
+
+        
+                String health1 = words1.length > 0 ? words1[0] : "";
+                String power1 = words1.length > 0 ? words1[1] : "";
+                String speed1 = words1.length > 0 ? words1[2] : "";
+                Platform.runLater(() -> {
+                    controller.healerHealthText.setText(health1);
+                    controller.healerSpeedText.setText(speed1);
+                    controller.healerPowerText.setText(power1);
+                });
                 String health2 = words2.length > 0 ? words2[0] : "";
                 String power2 = words2.length > 0 ? words2[1] : "";
                 String speed2 = words2.length > 0 ? words2[2] : "";
@@ -107,8 +113,6 @@ public class Controller {
                     controller.warriorSpeedText.setText(speed2);
                     controller.warriorPowerText.setText(power2);
                 });
-                String line3 = br.readLine();
-                String[] words3 = line3.split(" ");
                 String health3 = words3.length > 0 ? words3[0] : "";
                 String power3 = words3.length > 0 ? words3[1] : "";
                 String speed3 = words3.length > 0 ? words3[2] : "";
@@ -142,6 +146,7 @@ public class Controller {
                 String line1 = br.readLine();
                 String line2 = br.readLine();
                 String line3 = br.readLine();
+                new PrintWriter(filePath).close();
                 Platform.runLater(() -> {
                     controller.card1.setImage(new Image(getClass().getResource(line1).toExternalForm()));
                     controller.card2.setImage(new Image(getClass().getResource(line2).toExternalForm()));

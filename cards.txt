@@ -1,3 +1,0 @@
-resources/images/goldHit.png
-resources/images/hit.png
-resources/images/goldHeal.png

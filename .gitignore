@@ -8,3 +8,5 @@ lib/
 bin/
 #some mac shi
 .DS_Store
+#my input
+cards.txt

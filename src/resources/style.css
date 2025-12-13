@@ -30,6 +30,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 3.9em;
+    -fx-cursor: hand; 
 }
 
 #PlayB:hover {
@@ -39,31 +40,6 @@
         #d7d09b,
         radial-gradient(center 50% 50%, radius 100%, #eec709, #c6a149);
 }
-
-
-#FightB {
-    -fx-font-family: "Kiddosy free";
-    -fx-padding: 8 15 15 15;
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 8;
-    -fx-background-color: 
-        linear-gradient(from 0% 93% to 0% 100%, #e48c11 0%, #ac721b 100%),
-        #d9a31a,
-        #d7d09b,
-        radial-gradient(center 50% 50%, radius 100%, #ffd500, #d8af4f);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-    -fx-font-weight: bold;
-    -fx-font-size: 2.4em;
-}
-
-#FightB:hover{
-    -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #e48c11 0%, #ac721b 100%),
-    #d9a31a,
-    #d7d09b,
-    radial-gradient(center 50% 50%, radius 100%, #f2cb07, #d8af4f);
-}
-
-
 
 .my-input {
     -fx-background-color: rgb(245, 255, 244);
@@ -120,4 +96,29 @@
 .closeB:hover {
     -fx-background-color: 
     radial-gradient(center 50% 50%, radius 100%, #f2cb07, #d8af4f);
+}
+
+
+.cardB{
+    -fx-background-color: transparent; 
+    -fx-border-color: transparent;     
+    -fx-focus-color: transparent;     
+    -fx-faint-focus-color: transparent;
+    -fx-padding: 0;   
+    -fx-cursor: hand;             
+}
+
+.card {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 5);
+    -fx-cursor: hand; 
+    -fx-translate-y: 0;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-transition: all 0.2s ease; 
+}
+.card:hover {
+    -fx-translate-y: -10;  
+    -fx-scale-x: 1.05;   
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0.5, 0, 10);
 }

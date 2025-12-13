@@ -132,12 +132,9 @@ int pickPlayer(vector<Player>&enemies, Player &hero){
 
 void heroMakeTurn(Player *hero, vector<Player>&enemies){
 
-    displayCards(*hero);
     int idPickedCard = -10;
-    cout<<"which card you pick?: ";
     cin>>idPickedCard;
     Card &pickedCard = hero->getCards()[idPickedCard];
-    cout<<"your picked card description: "<< pickedCard.description<<endl;
 
     displayPlayers(enemies, *hero);
     int idPickedEnemy = -1;
@@ -202,6 +199,13 @@ void initializePlayerCards(vector<Card> cards, Player &hero) {
     }
 
     hero.setCards(picked);
+    ofstream outFile("cards.txt"); 
+    //for(int i = 0 ; i<picked.size(); i++){
+        //outFile<< "resources/images/"<<picked[i].name<< ".png"<<endl;
+        outFile<< "resources/images/"<<"goldHit"<< ".png"<<endl;//TODO: change to previous line 
+        outFile<< "resources/images/"<<"hit"<< ".png"<<endl;
+        outFile<< "resources/images/"<<"goldHeal"<< ".png"<<endl;
+    //}
 }
 
 
@@ -214,14 +218,13 @@ int main(){//make different difficulty levels? create bosses?
     initializePlayerCards(cards, hero);
     heroMakeTurn(&hero, enemies);
 
-    while(true){//TODO: make this smarter without ifs (not necessary)
+    for(int i =0; i<30; i++){
 
         
         int picked = pickPlayer(enemies, hero);
         switch(picked){
             case -1:
             heroMakeTurn(&hero, enemies);
-            //TODO: delete used card? or just draw everytime 3 new(easier)?
             break;
 
             case 3:

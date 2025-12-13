@@ -9,6 +9,8 @@ import java.io.IOException;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import java.net.URL;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 
 
@@ -20,6 +22,31 @@ public class Controller {
     @FXML
     private AnchorPane scenePane; 
     private static AudioClip click1;
+    @FXML
+    private ImageView card1;
+    @FXML
+    private ImageView card2;
+    @FXML
+    private ImageView card3;
+
+    @FXML
+    private TextField OrangeStrField;
+    int OrangeStr;
+    @FXML
+    private TextField BlackStrField;
+    int BlackStr;
+    @FXML
+    private TextField WhiteStrField;
+    int WhiteStr;
+    @FXML
+    private TextField OrangeNumField;
+    int OrangeNum;
+    @FXML
+    private TextField BlackNumField;
+    int BlackNum;
+    @FXML
+    private TextField WhiteNumField;
+    int WhiteNum;
 
     @FXML
     private void initialize() {
@@ -64,6 +91,14 @@ public class Controller {
         
         click1.play();
         
+        OrangeNum = Integer.parseInt(OrangeNumField.getText());
+        BlackNum = Integer.parseInt(BlackNumField.getText());
+        WhiteNum = Integer.parseInt(WhiteNumField.getText());
+        OrangeStr = Integer.parseInt(OrangeStrField.getText());
+        BlackStr = Integer.parseInt(BlackStrField.getText());
+        WhiteStr = Integer.parseInt(WhiteStrField.getText());
+        
+        
         Parent root = FXMLLoader.load(getClass().getResource("fightscene.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root, 800,578);
@@ -71,4 +106,9 @@ public class Controller {
         stage.show();
     }
 
+
+        
+
 }
+
+

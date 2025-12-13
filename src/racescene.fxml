@@ -32,9 +32,9 @@
                         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#closeB" styleClass="closeB" stylesheets="@resources/style.css" text="🐾" />
                         <HBox layoutY="340.0" prefHeight="40.0" prefWidth="786.0" spacing="50.0" stylesheets="@resources/style.css">
                            <children>
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="strength" styleClass="my-inputStrength" stylesheets="@resources/style.css" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="strength" styleClass="my-inputStrength" stylesheets="@resources/style.css" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="strength" styleClass="my-inputStrength" stylesheets="@resources/style.css">
+                              <TextField fx:id="OrangeStrField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="strength" styleClass="my-inputStrength" stylesheets="@resources/style.css" />
+                              <TextField fx:id="BlackStrField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="strength" styleClass="my-inputStrength" stylesheets="@resources/style.css" />
+                              <TextField fx:id="WhiteStrField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="strength" styleClass="my-inputStrength" stylesheets="@resources/style.css">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -68,9 +68,9 @@
                         </HBox>
                         <HBox layoutY="289.0" prefHeight="40.0" prefWidth="786.0" spacing="50.0" stylesheets="@resources/style.css">
                            <children>
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="number" styleClass="my-input" stylesheets="@resources/style.css" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="number" styleClass="my-input" stylesheets="@resources/style.css" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="number" styleClass="my-input" stylesheets="@resources/style.css">
+                              <TextField fx:id="OrangeNumField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="number" styleClass="my-input" stylesheets="@resources/style.css" />
+                              <TextField fx:id="BlackNumField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="number" styleClass="my-input" stylesheets="@resources/style.css" />
+                              <TextField fx:id="WhiteNumField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="124.0" promptText="number" styleClass="my-input" stylesheets="@resources/style.css">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>

@@ -63,11 +63,12 @@ void Card::increaseSpeed(Player &increaser, Player &target){
 }
 
 void displayPlayers(vector<Player>enemies, Player hero){
-    cout<<" YOU[-1] "<< " health="<< hero.getHealth()<< " power="<<hero.getPower()<< " speed="<<hero.getSpeed()<<endl;
+    ofstream outFile2("statistics.txt");
+    outFile2<< hero.getHealth()<< " "<<hero.getPower()<< " "<<hero.getSpeed()<<endl;
     for(int i = 0;i<3; i++){
-        cout<<enemies[i].getName()<<"["<<i<<"]"<<" health=" << enemies[i].getHealth() << 
-        " power="<< enemies[i].getPower()<<" speed= "<<enemies[i].getSpeed()<<endl;
-    }return;
+        outFile2<< enemies[i].getHealth() << " "<< enemies[i].getPower()<<" "<<enemies[i].getSpeed()<<endl;
+    }
+    return;
 }
 
 void displayCards(Player hero){
@@ -132,6 +133,7 @@ int pickPlayer(vector<Player>&enemies, Player &hero){
 
 void heroMakeTurn(Player *hero, vector<Player>&enemies){
 
+
     int idPickedCard = -10;
     cin>>idPickedCard;
     Card &pickedCard = hero->getCards()[idPickedCard];
@@ -144,10 +146,6 @@ void heroMakeTurn(Player *hero, vector<Player>&enemies){
     Player& pickedEnemy = (idPickedEnemy == -1) ? *hero : enemies[idPickedEnemy];
     cout<<"you will affect player "<< pickedEnemy.getName()<<endl;
 
-    std::ofstream out("cards.txt");
-    out << pickedCard.name <<"\n"; 
-    out << pickedEnemy.getName() <<"\n";
-    out.flush();
 
     pickedCard.hit(*hero, pickedEnemy);
     pickedCard.heal(*hero, pickedEnemy);
@@ -199,7 +197,7 @@ void initializePlayerCards(vector<Card> cards, Player &hero) {
     }
 
     hero.setCards(picked);
-    ofstream outFile("cards.txt"); 
+    ofstream outFile("cards.txt");
     //for(int i = 0 ; i<picked.size(); i++){
         //outFile<< "resources/images/"<<picked[i].name<< ".png"<<endl;
         outFile<< "resources/images/"<<"goldHit"<< ".png"<<endl;//TODO: change to previous line 
@@ -214,8 +212,8 @@ int main(){//make different difficulty levels? create bosses?
     vector<Player>enemies = initializeEnemies();
     Player hero(100,100, "hero", 30);
 
-
     initializePlayerCards(cards, hero);
+    displayPlayers(enemies, hero);
     heroMakeTurn(&hero, enemies);
 
     for(int i =0; i<30; i++){
@@ -240,7 +238,7 @@ int main(){//make different difficulty levels? create bosses?
             break;
 
             default:
-            cout<<"WHATA"<<picked;
+            cout<<"ERROR IN PICKING PLAYER"<<picked;
             return -1;
         }
         initializePlayerCards(cards, hero);

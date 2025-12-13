@@ -27,7 +27,7 @@
                                     <Insets left="165.0" right="165.0" />
                                  </padding>
                                  <children>
-                                    <Text fx:id="healerHealthText" strokeType="OUTSIDE" strokeWidth="0.0" text="health placeholder" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="healerHealthText" strokeType="OUTSIDE" strokeWidth="0.0" text="health placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -49,7 +49,7 @@
                                     <Insets left="165.0" right="165.0" />
                                  </padding>
                                  <children>
-                                    <Text fx:id="medicPowerText" strokeType="OUTSIDE" strokeWidth="0.0" text="power placeholder" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="healerPowerText" strokeType="OUTSIDE" strokeWidth="0.0" text="power placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -71,7 +71,7 @@
                                     <Insets left="165.0" right="165.0" />
                                  </padding>
                                  <children>
-                                    <Text fx:id="medicSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" text="speed placeholder" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="healerSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" text="speed placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -93,7 +93,7 @@
                                     <Insets left="120.0" right="120.0" />
                                  </padding>
                                  <children>
-                                    <Button mnemonicParsing="false" rotate="-5.2" styleClass="cardB">
+                                    <Button mnemonicParsing="false" onAction="#card1Click" rotate="-5.2" styleClass="cardB">
                                        <graphic>
                                           <ImageView fx:id="card1" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" styleClass="card">
                                              <image>

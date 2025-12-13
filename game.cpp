@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <random>
 #include <numeric>
+#include <fstream>
 using namespace std;
 
 class Player;
@@ -15,7 +16,6 @@ class Card{
     int powerHeal;
     int powerPower;
     int PowerSpeed;
-    //TODO: powerSpeed????
     
     Card(string desc, double prob, int powHit, int powHeal, int powPow, int powSpeed) 
     : description(desc), probability(prob), powerHit(powHit) , powerHeal(powHeal) , powerPower(powPow), PowerSpeed(powSpeed){} 
@@ -59,7 +59,6 @@ void Card::increasePower(Player &increaser, Player &target){
 }
 void Card::increaseSpeed(Player &increaser, Player &target){
     target.setSpeed(target.getSpeed()+PowerSpeed*increaser.getPower()*0.01);
-    cout<<target.getSpeed()+PowerSpeed*increaser.getPower()*0.01<<endl;
 }
 
 void displayPlayers(vector<Player>enemies, Player hero){
@@ -147,11 +146,15 @@ void heroMakeTurn(Player *hero, vector<Player>&enemies){
     Player& pickedEnemy = (idPickedEnemy == -1) ? *hero : enemies[idPickedEnemy];
     cout<<"you will affect player "<< pickedEnemy.getName()<<endl;
 
+    std::ofstream out("cards.txt");
+    out << pickedCard.description <<"\n"; 
+    out << pickedEnemy.getName() <<"\n";
+    out.flush();
+
     pickedCard.hit(*hero, pickedEnemy);
     pickedCard.heal(*hero, pickedEnemy);
     pickedCard.increasePower(*hero, pickedEnemy);
     pickedCard.increaseSpeed(*hero, pickedEnemy);
-    cout<<hero->getSpeed()<<endl;
 }
 
 void healerMakeTurn(vector<Player>&enemies){
@@ -174,23 +177,50 @@ void wizardMakeTurn(vector<Player>&enemies){
     cout<<"enemies get boost in power by "<< enemies[2].getPower()*0.01*30<< endl;
 }
 
+void initializePlayerCards(vector<Card> cards, Player &hero) {
+    vector<Card> picked;
+    static std::mt19937 rng(std::random_device{}());
+
+    int numToPick = 3;
+    while (picked.size() < numToPick && !cards.empty()) {
+        double total = 0;
+        for (auto& c : cards)
+            total += c.probability;
+
+        std::uniform_real_distribution<double> dist(0.0, total);
+        double r = dist(rng);
+
+        for (auto it = cards.begin(); it != cards.end(); ++it) {
+            if (r < it->probability) {
+                picked.push_back(*it);   
+                cards.erase(it);      
+                break;
+            }
+            r -= it->probability;
+        }
+    }
+
+    hero.setCards(picked);
+}
+
+
 int main(){//make different difficulty levels? create bosses?
     vector<Card>cards = initializeCards();
     vector<Player>enemies = initializeEnemies();
     Player hero(100,100, "hero", 30);
-    hero.setCards(cards);//TODO: give random cards to hero
+
+
+    initializePlayerCards(cards, hero);
     heroMakeTurn(&hero, enemies);
 
-    while(true){//TODO: make this smarter without ifs
+    while(true){//TODO: make this smarter without ifs (not necessary)
 
-        cout<<endl;
-        displayPlayers(enemies, hero);
-        cout<<endl;
         
         int picked = pickPlayer(enemies, hero);
         switch(picked){
             case -1:
             heroMakeTurn(&hero, enemies);
+            //TODO: delete used card? or just draw everytime 3 new(easier)?
             break;
 
             case 3:
@@ -209,6 +239,7 @@ int main(){//make different difficulty levels? create bosses?
             cout<<"WHATA"<<picked;
             return -1;
         }
+        initializePlayerCards(cards, hero);
 
     }//TODO: check if everyone live and make speed 0 if dead
     //TODO: update() only those who were changed??

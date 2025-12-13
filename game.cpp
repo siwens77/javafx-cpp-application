@@ -62,7 +62,7 @@ void Card::increaseSpeed(Player &increaser, Player &target){
     target.setSpeed(target.getSpeed()+PowerSpeed*increaser.getPower()*0.01);
 }
 
-void displayPlayers(vector<Player>enemies, Player hero){
+void updatePlayersInfo(vector<Player>enemies, Player hero){
     ofstream outFile2("statistics.txt");
     outFile2<< hero.getHealth()<< " "<<hero.getPower()<< " "<<hero.getSpeed()<<endl;
     for(int i = 0;i<3; i++){
@@ -71,12 +71,15 @@ void displayPlayers(vector<Player>enemies, Player hero){
     return;
 }
 
-void displayCards(Player hero){
+void updatePickedCards(Player hero){
     vector<Card>cards = hero.getCards();
-    cout<<"Your cards: "<<endl;
-    for(int i =0;i<cards.size();i++){
-        cout <<"["<< i<<"] "<<cards[i].description<<endl;
-    }
+    ofstream outFile("cards.txt");
+    //for(int i = 0 ; i<picked.size(); i++){
+        //outFile<< "resources/images/"<<picked[i].name<< ".png"<<endl;
+        outFile<< "resources/images/"<<"goldHit"<< ".png"<<endl;//TODO: change to previous line 
+        outFile<< "resources/images/"<<"hit"<< ".png"<<endl;
+        outFile<< "resources/images/"<<"goldHeal"<< ".png"<<endl;
+    //}
 }
 
 vector<Card> initializeCards() {
@@ -138,7 +141,7 @@ void heroMakeTurn(Player *hero, vector<Player>&enemies){
     cin>>idPickedCard;
     Card &pickedCard = hero->getCards()[idPickedCard];
 
-    displayPlayers(enemies, *hero);
+    updatePlayersInfo(enemies, *hero);
     int idPickedEnemy = -1;
     cout<<"which player do you want to affect?: ";
     cin>>idPickedEnemy;
@@ -197,13 +200,7 @@ void initializePlayerCards(vector<Card> cards, Player &hero) {
     }
 
     hero.setCards(picked);
-    ofstream outFile("cards.txt");
-    //for(int i = 0 ; i<picked.size(); i++){
-        //outFile<< "resources/images/"<<picked[i].name<< ".png"<<endl;
-        outFile<< "resources/images/"<<"goldHit"<< ".png"<<endl;//TODO: change to previous line 
-        outFile<< "resources/images/"<<"hit"<< ".png"<<endl;
-        outFile<< "resources/images/"<<"goldHeal"<< ".png"<<endl;
-    //}
+    updatePickedCards(hero);
 }
 
 
@@ -212,8 +209,8 @@ int main(){//make different difficulty levels? create bosses?
     vector<Player>enemies = initializeEnemies();
     Player hero(100,100, "hero", 30);
 
+    updatePlayersInfo(enemies, hero);
     initializePlayerCards(cards, hero);
-    displayPlayers(enemies, hero);
     heroMakeTurn(&hero, enemies);
 
     for(int i =0; i<30; i++){

@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
@@ -26,9 +25,9 @@ public class Controller {
     private Stage stage; 
     private Scene scene; 
     private static Process gameProcess;
+    private static AudioClip click1;
     @FXML
     private AnchorPane scenePane; 
-    private static AudioClip click1;
     @FXML
     private ImageView card1;
     @FXML
@@ -126,6 +125,36 @@ public class Controller {
         }).start();
     }
 
+    void updateCards(Controller controller){
+        new Thread(() -> {
+            String filePath = "cards.txt";
+            File file = new File(filePath);
+            while (!file.exists() || file.length() == 0) {
+                try {
+                    Thread.sleep(100); 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return;
+                }
+            }
+    
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line1 = br.readLine();
+                String line2 = br.readLine();
+                String line3 = br.readLine();
+                Platform.runLater(() -> {
+                    controller.card1.setImage(new Image(getClass().getResource(line1).toExternalForm()));
+                    controller.card2.setImage(new Image(getClass().getResource(line2).toExternalForm()));
+                    controller.card3.setImage(new Image(getClass().getResource(line3).toExternalForm()));
+                });
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     @FXML
     void PlayB(ActionEvent event) throws IOException {
         
@@ -145,35 +174,7 @@ public class Controller {
         ProcessBuilder pb = new ProcessBuilder(exePath);
         gameProcess = pb.start();
         updateStatistic(controller);
-
-        new Thread(() -> {
-            String filePath = "cards.txt";
-            File file = new File(filePath);
-            while (!file.exists() || file.length() == 0) {
-                try {
-                    Thread.sleep(100); 
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    return;
-                }
-            }
-    
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line1 = br.readLine();
-                String line2 = br.readLine();
-                String line3 = br.readLine();
-                new PrintWriter("cards.txt").close();
-                Platform.runLater(() -> {
-                    controller.card1.setImage(new Image(getClass().getResource(line1).toExternalForm()));
-                    controller.card2.setImage(new Image(getClass().getResource(line2).toExternalForm()));
-                    controller.card3.setImage(new Image(getClass().getResource(line3).toExternalForm()));
-                });
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
+        updateCards(controller);
     }
 
     @FXML
@@ -188,9 +189,15 @@ public class Controller {
 
     @FXML
     void card1Click(ActionEvent e ) throws IOException{
-        
-        System.out.println("HI");
-
+        System.out.println("clicked 1");
+    }
+    @FXML
+    void card2Click(ActionEvent e ) throws IOException{
+        System.out.println("clicked 2");
+    }
+    @FXML
+    void card3Click(ActionEvent e ) throws IOException{
+        System.out.println("clicked 3");
     }
 }
 

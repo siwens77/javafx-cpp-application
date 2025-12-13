@@ -32,12 +32,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="warriorHealthText" strokeType="OUTSIDE" strokeWidth="0.0" text="health placeholder" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="warriorHealthText" strokeType="OUTSIDE" strokeWidth="0.0" text="health placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="wizardHealthText" strokeType="OUTSIDE" strokeWidth="0.0" text="health placeholder" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="wizardHealthText" strokeType="OUTSIDE" strokeWidth="0.0" text="health placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -54,12 +54,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="warriorPowerText" strokeType="OUTSIDE" strokeWidth="0.0" text="power placeholder" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="warriorPowerText" strokeType="OUTSIDE" strokeWidth="0.0" text="power placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="wizardPowerText" strokeType="OUTSIDE" strokeWidth="0.0" text="power placeholder" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="wizardPowerText" strokeType="OUTSIDE" strokeWidth="0.0" text="power placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -76,12 +76,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="warriorSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" text="speed placeholder" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="warriorSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" text="speed placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="wizardSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" text="speed placeholder" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="wizardSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" text="speed placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -102,7 +102,7 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
-                                    <Button mnemonicParsing="false" styleClass="cardB">
+                                    <Button mnemonicParsing="false" onAction="#card2Click" styleClass="cardB">
                                        <graphic>
                                           <ImageView fx:id="card2" fitHeight="200.0" fitWidth="150.0" layoutX="-10.0" pickOnBounds="true" styleClass="card">
                                              <image>
@@ -114,7 +114,7 @@
                                           <Insets top="-10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" rotate="5.2" styleClass="cardB">
+                                    <Button mnemonicParsing="false" onAction="#card3Click" rotate="5.2" styleClass="cardB">
                                        <graphic>
                                           <ImageView fx:id="card3" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" styleClass="card">
                                              <image>
@@ -141,12 +141,12 @@
                                     <Image url="@resources/images/cat_demo.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="186.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="cat2View" fitHeight="186.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@resources/images/cat_demo.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fitHeight="186.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="cat3View" fitHeight="186.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@resources/images/cat_demo.png" />
                                  </image>

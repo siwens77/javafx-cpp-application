@@ -9,7 +9,6 @@ import java.io.IOException;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import java.net.URL;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 
@@ -28,25 +27,6 @@ public class Controller {
     private ImageView card2;
     @FXML
     private ImageView card3;
-
-    @FXML
-    private TextField OrangeStrField;
-    int OrangeStr;
-    @FXML
-    private TextField BlackStrField;
-    int BlackStr;
-    @FXML
-    private TextField WhiteStrField;
-    int WhiteStr;
-    @FXML
-    private TextField OrangeNumField;
-    int OrangeNum;
-    @FXML
-    private TextField BlackNumField;
-    int BlackNum;
-    @FXML
-    private TextField WhiteNumField;
-    int WhiteNum;
 
     @FXML
     private void initialize() {
@@ -69,11 +49,14 @@ public class Controller {
     void PlayB(ActionEvent event) throws IOException {
         
         click1.play();
+
+
         
         Parent root = FXMLLoader.load(getClass().getResource("racescene.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root, 800,578);
         stage.setScene(scene);
+        Process p = new ProcessBuilder("./game").start();
         stage.show();
     }
     @FXML
@@ -86,28 +69,9 @@ public class Controller {
 
 
 
-    @FXML
-    void FightB(ActionEvent event) throws IOException {
-        
-        click1.play();
-        
-        OrangeNum = Integer.parseInt(OrangeNumField.getText());
-        BlackNum = Integer.parseInt(BlackNumField.getText());
-        WhiteNum = Integer.parseInt(WhiteNumField.getText());
-        OrangeStr = Integer.parseInt(OrangeStrField.getText());
-        BlackStr = Integer.parseInt(BlackStrField.getText());
-        WhiteStr = Integer.parseInt(WhiteStrField.getText());
-        
-        
-        Parent root = FXMLLoader.load(getClass().getResource("fightscene.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 800,578);
-        stage.setScene(scene);
-        stage.show();
-    }
 
 
-        
+
 
 }
 

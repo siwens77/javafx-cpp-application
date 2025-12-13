@@ -10,6 +10,7 @@ class Card;
 
 class Card{
     public:
+    string name;
     string description;
     double probability;
     int powerHit;
@@ -17,8 +18,8 @@ class Card{
     int powerPower;
     int PowerSpeed;
     
-    Card(string desc, double prob, int powHit, int powHeal, int powPow, int powSpeed) 
-    : description(desc), probability(prob), powerHit(powHit) , powerHeal(powHeal) , powerPower(powPow), PowerSpeed(powSpeed){} 
+    Card(string n, string desc, double prob, int powHit, int powHeal, int powPow, int powSpeed) 
+    : name(n), description(desc), probability(prob), powerHit(powHit) , powerHeal(powHeal) , powerPower(powPow), PowerSpeed(powSpeed){} 
     void hit(Player& abuser, Player& victim);
     void heal(Player& abuser, Player& victim);
     void increasePower(Player& increaser, Player& target);
@@ -79,13 +80,13 @@ void displayCards(Player hero){
 
 vector<Card> initializeCards() {
     vector<Card> cards;
-    //Card(description, probability, hit, heal, power,speed)
-    Card hitCard("common card hitting for 5p", 1, 5, 0, 0,0);
-    Card goldHitCard("rare card hitting for 20p", 0.25, 20, 0, 0,0);
-    Card healCard("common card healing 10p", 1,0,20,0,0);
-    Card goldHealCard("rare card healing 50p", 0.2,0,50,0,0); 
-    Card powerCard("common card increasing power by 25p", 1,0,0,25,0);
-    Card goldPowerCard("rare card increasing power by 50p", 0,0,0,50,0);
+    //Card(name, description, probability, hit, heal, power,speed)
+    Card hitCard("hit", "common card hitting for 5p", 1, 5, 0, 0,0);
+    Card goldHitCard("goldHit", "rare card hitting for 20p", 0.25, 20, 0, 0,0);
+    Card healCard("heal" ,"common card healing 10p", 1,0,20,0,0);
+    Card goldHealCard("goldHeal", "rare card healing 50p", 0.2,0,50,0,0); 
+    Card powerCard("power", "common card increasing power by 25p", 1,0,0,25,0);
+    Card goldPowerCard("goldPower", "rare card increasing power by 50p", 0,0,0,50,0);
     //TODO: card increasing speed
     //TODO: joker increasing everything
     //TODO: card setting every attibrute to 1 
@@ -147,7 +148,7 @@ void heroMakeTurn(Player *hero, vector<Player>&enemies){
     cout<<"you will affect player "<< pickedEnemy.getName()<<endl;
 
     std::ofstream out("cards.txt");
-    out << pickedCard.description <<"\n"; 
+    out << pickedCard.name <<"\n"; 
     out << pickedEnemy.getName() <<"\n";
     out.flush();
 

@@ -116,9 +116,37 @@
     -fx-scale-y: 1;
     -fx-transition: all 0.2s ease; 
 }
-.card:hover {
+.cardB:hover {
     -fx-translate-y: -10;  
     -fx-scale-x: 1.05;   
     -fx-scale-y: 1.05;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0.5, 0, 10);
+}
+
+
+.health {
+    -fx-font-family: "Comic Sans MS", "Verdana", sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(from 0% 0% to 0% 100%, #A8E6A3 0%, #5AA65C 100%);
+    -fx-effect: dropshadow(gaussian, rgba(0,128,0,0.2), 5, 0.2, 0, 2);
+    -fx-padding: 5 10 5 10;
+    -fx-background-radius: 8;
+}
+
+.power {
+    -fx-font-family: "Comic Sans MS", "Verdana", sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(from 0% 0% to 0% 100%, #FFA3A3 0%, #D65A5A 100%);
+    -fx-effect: dropshadow(gaussian, rgba(255,0,0,0.2), 5, 0.2, 0, 2);
+    -fx-padding: 5 10 5 10;
+    -fx-background-radius: 8;
+}
+
+.speed {
+    -fx-font-family: "Comic Sans MS", "Verdana", sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(from 0% 0% to 0% 100%, #D6A3F7 0%, #8A4BD6 100%);
+    -fx-effect: dropshadow(gaussian, rgba(128,0,128,0.2), 5, 0.2, 0, 2);
+    -fx-padding: 5 10 5 10;
+    -fx-background-radius: 8;
 }

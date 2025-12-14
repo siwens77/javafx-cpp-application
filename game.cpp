@@ -3,6 +3,8 @@
 #include <random>
 #include <numeric>
 #include <fstream>
+#include <thread>
+#include <chrono>
 using namespace std;
 
 class Player;
@@ -63,33 +65,40 @@ void Card::increaseSpeed(Player &increaser, Player &target){
 }
 
 void updatePlayersInfo(vector<Player>enemies, Player hero){
-    ofstream outFile2("statistics.txt");
+    ofstream outFile2("statistics.tmp");
     outFile2<< hero.getHealth()<< " "<<hero.getPower()<< " "<<hero.getSpeed()<<endl;
     for(int i = 0;i<3; i++){
         outFile2<< enemies[i].getHealth() << " "<< enemies[i].getPower()<<" "<<enemies[i].getSpeed()<<endl;
     }
+    rename("statistics.tmp", "statistics.txt");
+
     return;
 }
 
 void updatePickedCards(Player hero){
     vector<Card>cards = hero.getCards();
     ofstream outFile("cards.txt");
-    //for(int i = 0 ; i<picked.size(); i++){
-        //outFile<< "resources/images/"<<picked[i].name<< ".png"<<endl;
-        outFile<< "resources/images/"<<"goldHit"<< ".png"<<endl;//TODO: change to previous line 
-        outFile<< "resources/images/"<<"hit"<< ".png"<<endl;
-        outFile<< "resources/images/"<<"goldHeal"<< ".png"<<endl;
-    //}
+    for(int i = 0 ; i<cards.size(); i++){
+        outFile<< "resources/images/"<<cards[i].name<< ".png"<<endl;
+    }
+}
+
+void clearFiles() {
+    const char* files[] = {"clickedCard.txt", "statistics.txt", "clickedCat.txt","whosturn.txt"};
+    for (const char* file : files) {
+        std::ofstream out(file, std::ios::trunc);
+        out.close();
+    }
 }
 
 vector<Card> initializeCards() {
     vector<Card> cards;
     //Card(name, description, probability, hit, heal, power,speed)
     Card hitCard("hit", "common card hitting for 5p", 1, 5, 0, 0,0);
-    Card goldHitCard("goldHit", "rare card hitting for 20p", 0.25, 20, 0, 0,0);
+    Card goldHitCard("goldHit", "rare card hitting for 20p", 1, 20, 0, 0,0);
     Card healCard("heal" ,"common card healing 10p", 1,0,20,0,0);
-    Card goldHealCard("goldHeal", "rare card healing 50p", 0.2,0,50,0,0); 
-    Card powerCard("power", "common card increasing power by 25p", 1,0,0,25,0);
+    Card goldHealCard("goldHeal", "rare card healing 50p", 1,0,50,0,0); 
+    Card powerCard("power", "common card increasing power by 25p", 0,0,0,25,0);
     Card goldPowerCard("goldPower", "rare card increasing power by 50p", 0,0,0,50,0);
     //TODO: card increasing speed
     //TODO: joker increasing everything
@@ -108,7 +117,7 @@ vector<Card> initializeCards() {
 }
 
 vector<Player> initializeEnemies(){//Player(health, power, name, speed) TODO:make different max health?
-    return {{100, 10 , "healer",20}, {100,30, "warrior",30}, {100,40, "magician",20}};//TODO: better balance in game
+    return {{90, 10 , "healer",20}, {100,30, "warrior",30}, {100,40, "magician",20}};//TODO: better balance in game
 }
 
 int pickPlayer(vector<Player>&enemies, Player &hero){
@@ -135,45 +144,56 @@ int pickPlayer(vector<Player>&enemies, Player &hero){
 }
 
 void heroMakeTurn(Player *hero, vector<Player>&enemies){
-
-
-    int idPickedCard = -10;
-    cin>>idPickedCard;
-    Card &pickedCard = hero->getCards()[idPickedCard];
-
-    updatePlayersInfo(enemies, *hero);
-    int idPickedEnemy = -1;
-    cout<<"which player do you want to affect?: ";
-    cin>>idPickedEnemy;
     
-    Player& pickedEnemy = (idPickedEnemy == -1) ? *hero : enemies[idPickedEnemy];
-    cout<<"you will affect player "<< pickedEnemy.getName()<<endl;
+    string idPickedCard;
+    while(true){
+        ifstream MyFile("clickedCard.txt");
+        getline(MyFile, idPickedCard); 
+        if (idPickedCard == "0" ||idPickedCard == "1" ||idPickedCard == "2") {
+            MyFile.close();
+            break;
+    }MyFile.close();
+    this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+    Card &pickedCard = hero->getCards()[stoi(idPickedCard)];
 
+
+
+    string idPickedCat;
+    while(true){
+        ifstream MyFile2("clickedCat.txt");
+        getline(MyFile2, idPickedCat); 
+        if (idPickedCat == "0" ||idPickedCat == "1" ||idPickedCat == "2") {
+            MyFile2.close();
+            break;
+    }MyFile2.close();
+    this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+
+    int idPickedEnemy = stoi(idPickedCat);
+    Player& pickedEnemy = (idPickedEnemy == -1) ? *hero : enemies[idPickedEnemy];
 
     pickedCard.hit(*hero, pickedEnemy);
     pickedCard.heal(*hero, pickedEnemy);
     pickedCard.increasePower(*hero, pickedEnemy);
     pickedCard.increaseSpeed(*hero, pickedEnemy);
+
 }
 
 void healerMakeTurn(vector<Player>&enemies){
     for(Player& p :enemies){
         p.setHealth(min(enemies[0].getPower()*0.01*30+p.getHealth(), 100.00));
     }
-    cout<<"healer incresed health of enemies by: "<<enemies[0].getPower()*0.01*30<<endl;
 }
 
 void warriorMakeTurn(vector<Player>&enemies, Player &hero){
-    cout<<"hero hit by "<< enemies[1].getPower()*0.01*5<<" by warrior" <<endl;
     hero.setHealth(max(hero.getHealth()-enemies[1].getPower()*0.01*5, 0.0));
-    cout<<"current health: "<<hero.getHealth()<<endl;
 }
 
 void wizardMakeTurn(vector<Player>&enemies){
     for(Player& p :enemies){
         p.setPower(enemies[2].getPower()*0.01*30+p.getPower());
     }
-    cout<<"enemies get boost in power by "<< enemies[2].getPower()*0.01*30<< endl;
 }
 
 void initializePlayerCards(vector<Card> cards, Player &hero) {
@@ -198,50 +218,92 @@ void initializePlayerCards(vector<Card> cards, Player &hero) {
             r -= it->probability;
         }
     }
-
     hero.setCards(picked);
     updatePickedCards(hero);
 }
 
+void waitUntilNextTurn() {
+    while (true) {
+        std::ifstream file("statistics.txt", std::ios::ate);
+        if (file && file.tellg() == 0) {
+            return; 
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+}
+
+void writeWhoseTurn(int picked) {
+    std::ofstream file("whosturn.txt", std::ios::trunc);
+
+    switch (picked) {
+        case -1:
+            file << "hero";
+            break;
+        case 1:
+            file << "wizard";
+            break;
+        case 2:
+            file << "warrior";
+            break;
+        case 3:
+            file << "healer";
+            break;
+        case 69:
+            file << "END";
+            break;
+        default:
+            file << "unknown";
+            break;
+    }
+}
+
+void playTurn(vector<Player>&enemies, Player &hero){
+    updatePlayersInfo(enemies,hero);
+    waitUntilNextTurn();
+    clearFiles();
+
+    int picked = pickPlayer(enemies, hero);
+    writeWhoseTurn(picked);
+    switch(picked){
+
+        case -1:
+        heroMakeTurn(&hero, enemies);
+        break;
+
+        case 3:
+        healerMakeTurn(enemies);
+        break;
+
+        case 2:
+        warriorMakeTurn(enemies, hero);
+        break;
+
+        case 1:
+        wizardMakeTurn(enemies);
+        break;
+
+        default:
+        return;
+    }
+}
 
 int main(){//make different difficulty levels? create bosses?
+    clearFiles();
     vector<Card>cards = initializeCards();
     vector<Player>enemies = initializeEnemies();
     Player hero(100,100, "hero", 30);
 
     updatePlayersInfo(enemies, hero);
     initializePlayerCards(cards, hero);
+    
+    writeWhoseTurn(-1);
     heroMakeTurn(&hero, enemies);
 
-    for(int i =0; i<30; i++){
 
-        
-        int picked = pickPlayer(enemies, hero);
-        switch(picked){
-            case -1:
-            heroMakeTurn(&hero, enemies);
-            break;
-
-            case 3:
-            healerMakeTurn(enemies);
-            break;
-
-            case 2:
-            warriorMakeTurn(enemies, hero);
-            break;
-
-            case 1:
-            wizardMakeTurn(enemies);
-            break;
-
-            default:
-            cout<<"ERROR IN PICKING PLAYER"<<picked;
-            return -1;
-        }
-        initializePlayerCards(cards, hero);
-
+    for(int i =0; i<5; i++){
+        playTurn(enemies, hero);
     }//TODO: check if everyone live and make speed 0 if dead
-    //TODO: update() only those who were changed??
+    writeWhoseTurn(69);
         
 
     return 0;

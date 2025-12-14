@@ -8,14 +8,17 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.util.Scanner;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
 import java.net.URL;
+import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -72,7 +75,7 @@ public class Controller {
         click1 = new AudioClip(sound.toString());
     }
 
-    void updateStatistic(Controller controller){
+    public void updateStatistic(Controller controller){
         new Thread(() -> {
             String filePath = "statistics.txt";
             File file = new File(filePath);
@@ -193,17 +196,74 @@ public class Controller {
     }
 
     @FXML
-    void card1Click(ActionEvent e ) throws IOException{
-        System.out.println("clicked 1");
+    void card1Click(ActionEvent e) {
+        writeClickedCard("0");
+    }
+
+    @FXML
+    void card2Click(ActionEvent e) {
+    writeClickedCard("1");
+    }
+
+    @FXML
+    void card3Click(ActionEvent e) {
+    writeClickedCard("2");
+
+    }
+
+    private void writeClickedCard(String cardId) {
+        try (FileWriter writer = new FileWriter("clickedCard.txt")) {
+            writer.write(cardId);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void writeClickedCat(String catID) {
+        try (FileWriter writer = new FileWriter("clickedCat.txt")) {
+            writer.write(catID);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    void markPlayer(){
+        String filePath = "whosturn.txt";
+        File file = new File(filePath);
+
+        while (!file.exists() || file.length() == 0) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String turn = br.readLine();
+            new PrintWriter(filePath).close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void cat1click(ActionEvent e){
+        writeClickedCat("0");
     }
     @FXML
-    void card2Click(ActionEvent e ) throws IOException{
-        System.out.println("clicked 2");
+    void cat2click(ActionEvent e){
+        writeClickedCat("1");
     }
     @FXML
-    void card3Click(ActionEvent e ) throws IOException{
-        System.out.println("clicked 3");
+    void cat3click(ActionEvent e){
+        writeClickedCat("2");
     }
+
+    @FXML
+    void nextTurn(ActionEvent e){
+        updateStatistic(this);
+    }
+
 }
-
-

@@ -20,75 +20,66 @@
                <children>
                   <AnchorPane fx:id="scenePane" maxHeight="578.0" maxWidth="800.0" minHeight="578.0" minWidth="800.0" styleClass="bodybg2" stylesheets="@resources/style.css" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox layoutY="209.0" prefHeight="112.0" prefWidth="800.0">
+                        <VBox layoutY="210.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="802.0">
                            <children>
-                              <HBox prefHeight="37.0" prefWidth="802.0" spacing="50.0" stylesheets="@resources/style.css">
-                                 <padding>
-                                    <Insets left="165.0" right="165.0" />
-                                 </padding>
+                              <HBox alignment="CENTER" prefHeight="37.0" prefWidth="802.0" spacing="80.0" stylesheets="@resources/style.css">
                                  <children>
-                                    <Text fx:id="healerHealthText" strokeType="OUTSIDE" strokeWidth="0.0" text="health placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="healerHealthText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="health" text="health" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="warriorHealthText" strokeType="OUTSIDE" strokeWidth="0.0" text="health placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="warriorHealthText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="health" text="health" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="wizardHealthText" strokeType="OUTSIDE" strokeWidth="0.0" text="health placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="wizardHealthText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="health" text="health " textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="37.0" prefWidth="802.0" spacing="50.0" stylesheets="@resources/style.css">
-                                 <padding>
-                                    <Insets left="165.0" right="165.0" />
-                                 </padding>
+                              <HBox alignment="CENTER" prefHeight="37.0" prefWidth="802.0" spacing="80.0" stylesheets="@resources/style.css">
                                  <children>
-                                    <Text fx:id="healerPowerText" strokeType="OUTSIDE" strokeWidth="0.0" text="power placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="healerPowerText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="power" text="power " textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="warriorPowerText" strokeType="OUTSIDE" strokeWidth="0.0" text="power placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="warriorPowerText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="power" text="power " textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="wizardPowerText" strokeType="OUTSIDE" strokeWidth="0.0" text="power placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="wizardPowerText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="power" text="power" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="37.0" prefWidth="802.0" spacing="50.0" stylesheets="@resources/style.css">
-                                 <padding>
-                                    <Insets left="165.0" right="165.0" />
-                                 </padding>
+                              <HBox alignment="CENTER" prefHeight="37.0" prefWidth="802.0" spacing="80.0" stylesheets="@resources/style.css">
                                  <children>
-                                    <Text fx:id="healerSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" text="speed placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="healerSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="speed" text="speed" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="warriorSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" text="speed placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="warriorSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="speed" text="speed" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="wizardSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" text="speed placeholder" textAlignment="CENTER" wrappingWidth="122.21185302734375">
+                                    <Text fx:id="wizardSpeedText" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="speed" text="speed" textAlignment="CENTER" wrappingWidth="122.21185302734375">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="200.0" prefWidth="714.0" spacing="40.0">
+                              <HBox alignment="CENTER" prefHeight="200.0" prefWidth="714.0" spacing="40.0">
                                  <padding>
                                     <Insets left="120.0" right="120.0" />
                                  </padding>
@@ -123,6 +114,18 @@
                                           </ImageView>
                                        </graphic>
                                     </Button>
+                                    <Button alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#nextTurn" prefHeight="75.0" prefWidth="40.0" styleClass="cardB" text="NEXT">
+                                       <HBox.margin>
+                                          <Insets left="20.0" top="120.0" />
+                                       </HBox.margin>
+                                       <graphic>
+                                          <ImageView fitHeight="84.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@resources/images/right.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
                                  <VBox.margin>
                                     <Insets top="70.0" />
@@ -133,29 +136,44 @@
                               <Insets bottom="20.0" top="20.0" />
                            </padding>
                         </VBox>
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#closeB" styleClass="closeB" stylesheets="@resources/style.css" text="🐾" />
-                        <HBox layoutY="28.0" maxWidth="802.0" prefHeight="152.0" prefWidth="802.0" spacing="50.0">
+                        <HBox alignment="CENTER" maxWidth="819.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="236.0" prefWidth="800.0" spacing="50.0">
                            <children>
-                              <ImageView fx:id="cat1View" fitHeight="186.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@resources/images/cat_demo.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="cat2View" fitHeight="186.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@resources/images/cat_demo.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fx:id="cat3View" fitHeight="186.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@resources/images/cat_demo.png" />
-                                 </image>
-                              </ImageView>
+                              <Button mnemonicParsing="false" onAction="#cat1click" styleClass="cardB">
+                                 <graphic>
+                                    <ImageView fx:id="cat1View" fitHeight="242.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true" styleClass="card">
+                                       <image>
+                                          <Image url="@resources/images/healer.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets bottom="100.0" />
+                                 </padding>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#cat2click" styleClass="cardB">
+                                 <graphic>
+                                    <ImageView fx:id="cat2View" fitHeight="242.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true" styleClass="card">
+                                       <image>
+                                          <Image url="@resources/images/warrior.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#cat3click" styleClass="cardB">
+                                 <graphic>
+                                    <ImageView fx:id="cat3View" fitHeight="242.0" fitWidth="158.0" pickOnBounds="true" preserveRatio="true" styleClass="card">
+                                       <image>
+                                          <Image url="@resources/images/wizard.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
-                           <padding>
-                              <Insets left="165.0" right="165.0" />
-                           </padding>
                         </HBox>
+                        <Button defaultButton="true" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeB" prefHeight="60.0" prefWidth="60.0" styleClass="closeB" stylesheets="@resources/style.css" text="🐾" />
                      </children>
                      <VBox.margin>
                         <Insets />

@@ -8,17 +8,14 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Scanner;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
 import java.net.URL;
-import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -57,6 +54,12 @@ public class Controller {
     private Text wizardSpeedText;
     @FXML
     private Text wizardHealthText;
+    @FXML
+    private Text heroPowerText;
+    @FXML
+    private Text heroSpeedText;
+    @FXML
+    private Text heroHealthText;
 
     @FXML
     private void initialize() {
@@ -95,11 +98,19 @@ public class Controller {
                 String line3 = br.readLine();
                 new PrintWriter(filePath).close();
 
+                String[] words0 = line0.split(" ");
                 String[] words1 = line1.split(" ");
                 String[] words2 = line2.split(" ");
                 String[] words3 = line3.split(" ");
 
-        
+                String health0 = words0.length > 0 ? words0[0] : "";
+                String power0 = words0.length > 0 ? words0[1] : "";
+                String speed0 = words0.length > 0 ? words0[2] : "";
+                Platform.runLater(() -> {
+                    controller.heroHealthText.setText(health0);
+                    controller.heroSpeedText.setText(speed0);
+                    controller.heroPowerText.setText(power0);
+                });
                 String health1 = words1.length > 0 ? words1[0] : "";
                 String power1 = words1.length > 0 ? words1[1] : "";
                 String speed1 = words1.length > 0 ? words1[2] : "";

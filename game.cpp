@@ -296,6 +296,7 @@ int main(){//make different difficulty levels? create bosses?
     updatePlayersInfo(enemies, hero);
     initializePlayerCards(cards, hero);
     
+    //first round is always hero
     writeWhoseTurn(-1);
     heroMakeTurn(&hero, enemies);
 
@@ -303,8 +304,9 @@ int main(){//make different difficulty levels? create bosses?
     for(int i =0; i<5; i++){
         playTurn(enemies, hero);
     }//TODO: check if everyone live and make speed 0 if dead
+    
+    
+    
     writeWhoseTurn(69);
-        
-
     return 0;
 }

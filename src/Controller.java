@@ -232,7 +232,7 @@ public class Controller {
     }
 
     private void writeClickedCard(String cardId) {
-        try (FileWriter writer = new FileWriter("clickedCard.txt")) {
+        try (FileWriter writer = new FileWriter("clickedCard.tmp")) {
             writer.write(cardId);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -240,7 +240,7 @@ public class Controller {
     }
 
     private void writeClickedCat(String catID) {
-        try (FileWriter writer = new FileWriter("clickedCat.txt")) {
+        try (FileWriter writer = new FileWriter("clickedCat.tmp")) {
             writer.write(catID);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -309,8 +309,18 @@ public class Controller {
         writeClickedCat("2");
     }
 
+    void sendClicks(){
+        File tmpFile = new File("clickedCard.tmp");
+        File txtFile = new File("clickedCard.txt");
+        File tmpFile2 = new File("clickedCat.tmp");
+        File txtFile2 = new File("clickedCat.txt");
+        tmpFile.renameTo(txtFile);
+        tmpFile2.renameTo(txtFile2);
+    }
+
     @FXML
     void nextTurn(ActionEvent e){
+        sendClicks();
         markPlayer(this);
         updateStatistic(this);
     }

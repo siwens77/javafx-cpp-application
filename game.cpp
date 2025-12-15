@@ -117,7 +117,7 @@ vector<Card> initializeCards() {
 }
 
 vector<Player> initializeEnemies(){//Player(health, power, name, speed) TODO:make different max health?
-    return {{90, 10 , "healer",20}, {100,30, "warrior",30}, {100,40, "magician",20}};//TODO: better balance in game
+    return {{10, 10 , "healer",20}, {100,30, "warrior",30}, {100,40, "magician",20}};//TODO: better balance in game
 }
 
 int pickPlayer(vector<Player>&enemies, Player &hero){
@@ -146,30 +146,23 @@ int pickPlayer(vector<Player>&enemies, Player &hero){
 void heroMakeTurn(Player *hero, vector<Player>&enemies){
     
     string idPickedCard;
-    while(true){
-        ifstream MyFile("clickedCard.txt");
-        getline(MyFile, idPickedCard); 
-        if (idPickedCard == "0" ||idPickedCard == "1" ||idPickedCard == "2") {
-            MyFile.close();
-            break;
-    }MyFile.close();
-    this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-    Card &pickedCard = hero->getCards()[stoi(idPickedCard)];
-
-
-
     string idPickedCat;
     while(true){
+        ifstream MyFile("clickedCard.txt");
         ifstream MyFile2("clickedCat.txt");
+        getline(MyFile, idPickedCard); 
         getline(MyFile2, idPickedCat); 
-        if (idPickedCat == "0" ||idPickedCat == "1" ||idPickedCat == "2") {
+        if ((idPickedCard == "0" ||idPickedCard == "1" ||idPickedCard == "2") 
+        && (idPickedCat == "0" ||idPickedCat == "1" ||idPickedCat == "2")){
+            MyFile.close();
             MyFile2.close();
             break;
-    }MyFile2.close();
+    }MyFile.close();
+    MyFile2.close();
     this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
+    Card &pickedCard = hero->getCards()[stoi(idPickedCard)];
     int idPickedEnemy = stoi(idPickedCat);
     Player& pickedEnemy = (idPickedEnemy == -1) ? *hero : enemies[idPickedEnemy];
 

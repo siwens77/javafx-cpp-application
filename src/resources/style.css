@@ -123,6 +123,13 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0.5, 0, 10);
 }
 
+.card-frame {
+    -fx-border-color: gold;    
+    -fx-border-width: 4px;     
+    -fx-border-radius: 10px;   
+    -fx-effect: dropshadow(gaussian, gold, 20, 0.5, 0, 0); 
+}
+
 
 .health {
     -fx-font-family: "Comic Sans MS", "Verdana", sans-serif;

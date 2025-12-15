@@ -16,6 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
 import java.net.URL;
+import java.util.Collections;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -28,8 +30,6 @@ public class Controller {
     private Scene scene; 
     private static Process gameProcess;
     private static AudioClip click1;
-    @FXML
-    private Text whosturnText;
     @FXML
     private AnchorPane scenePane; 
     @FXML
@@ -62,6 +62,12 @@ public class Controller {
     private Text heroSpeedText;
     @FXML
     private Text heroHealthText;
+    @FXML
+    private ImageView cat1View;
+    @FXML
+    private ImageView cat2View;
+    @FXML
+    private ImageView cat3View;
 
     @FXML
     private void initialize() {
@@ -257,7 +263,30 @@ public class Controller {
                 String line0 = br.readLine();
                 new PrintWriter(filePath).close();
                 Platform.runLater(() -> {
-                    controller.whosturnText.setText(line0);
+                    switch(line0){
+                        case "hero":
+                            controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                            controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                            controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                            break;
+                        case "healer":
+                            controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                            controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                            controller.cat1View.getStyleClass().add("card-frame");
+                            break;
+                        case "warrior":
+                            controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                            controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                            controller.cat2View.getStyleClass().add("card-frame");
+                            break;
+                        case "wizard":
+                            controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                            controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                            controller.cat3View.getStyleClass().add("card-frame");
+                            break;
+                        default:
+                            break;
+                    }
                 });
 
             } catch (IOException e) {

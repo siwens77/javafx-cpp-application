@@ -298,6 +298,7 @@ int main(){//make different difficulty levels? create bosses?
     
     //first round is always hero
     writeWhoseTurn(-1);
+    waitUntilNextTurn();
     heroMakeTurn(&hero, enemies);
 
 

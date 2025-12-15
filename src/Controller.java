@@ -29,6 +29,8 @@ public class Controller {
     private static Process gameProcess;
     private static AudioClip click1;
     @FXML
+    private Text whosturnText;
+    @FXML
     private AnchorPane scenePane; 
     @FXML
     private ImageView card1;
@@ -92,7 +94,7 @@ public class Controller {
             }
     
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line0 = br.readLine();//TODO: set somewhere hero health etc
+                String line0 = br.readLine();
                 String line1 = br.readLine();
                 String line2 = br.readLine();
                 String line3 = br.readLine();
@@ -192,6 +194,7 @@ public class Controller {
         String exePath = new File("game").getAbsolutePath();
         ProcessBuilder pb = new ProcessBuilder(exePath);
         gameProcess = pb.start();
+        markPlayer(controller);
         updateStatistic(controller);
         updateCards(controller);
     }
@@ -238,25 +241,29 @@ public class Controller {
         }
     }
     
-    void markPlayer(){
-        String filePath = "whosturn.txt";
-        File file = new File(filePath);
-
-        while (!file.exists() || file.length() == 0) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                return;
+    void markPlayer(Controller controller){
+        new Thread(() -> {
+            String filePath = "whosturn.txt";
+            File file = new File(filePath);
+            while (!file.exists() || file.length() == 0) {
+                try {
+                    Thread.sleep(100); 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return;
+                }
             }
-        }
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line0 = br.readLine();
+                new PrintWriter(filePath).close();
+                Platform.runLater(() -> {
+                    controller.whosturnText.setText(line0);
+                });
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String turn = br.readLine();
-            new PrintWriter(filePath).close();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     @FXML
@@ -274,6 +281,7 @@ public class Controller {
 
     @FXML
     void nextTurn(ActionEvent e){
+        markPlayer(this);
         updateStatistic(this);
     }
 

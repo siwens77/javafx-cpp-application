@@ -52,7 +52,7 @@ class Player{
 
 
 void Card::hit(Player &abuser, Player &victim){
-    victim.setHealth(victim.getHealth()-powerHit*abuser.getPower()*0.01);
+    victim.setHealth(max(victim.getHealth()-powerHit*abuser.getPower()*0.01,0.00));
 }
 void Card::heal(Player &abuser, Player &victim){
     victim.setHealth(min(victim.getHealth()+powerHeal*abuser.getPower()*0.01, 100.00));
@@ -141,6 +141,15 @@ int pickPlayer(vector<Player>&enemies, Player &hero){
         picked--;
     }
     return 100000;
+}
+
+void CheckIfEnemiesDead(vector<Player>&enemies, Player hero){
+    for(Player& p: enemies){
+        if(p.getHealth()==0){
+            p.setPower(0);
+            p.setSpeed(0);
+        }
+    }
 }
 
 void heroMakeTurn(Player *hero, vector<Player>&enemies){
@@ -278,6 +287,7 @@ void playTurn(vector<Player>&enemies, Player &hero){
         default:
         return;
     }
+    CheckIfEnemiesDead(enemies, hero);
 }
 
 int main(){//make different difficulty levels? create bosses?
@@ -289,12 +299,6 @@ int main(){//make different difficulty levels? create bosses?
     updatePlayersInfo(enemies, hero);
     initializePlayerCards(cards, hero);
     
-    //first round is always hero
-    writeWhoseTurn(-1);
-    waitUntilNextTurn();
-    heroMakeTurn(&hero, enemies);
-
-
     for(int i =0; i<10; i++){
         playTurn(enemies, hero);
     }//TODO: check if everyone live and make speed 0 if dead

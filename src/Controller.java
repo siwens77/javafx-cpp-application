@@ -265,6 +265,7 @@ public class Controller {
                 Platform.runLater(() -> {
                     switch(line0){
                         case "hero":
+                            updateCards(this);
                             controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));

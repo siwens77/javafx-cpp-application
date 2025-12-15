@@ -257,7 +257,7 @@ void writeWhoseTurn(int picked) {
     }
 }
 
-void playTurn(vector<Player>&enemies, Player &hero){
+void playTurn(vector<Player>&enemies, Player &hero, vector<Card> cards){
     updatePlayersInfo(enemies,hero);
     waitUntilNextTurn();
     clearFiles();
@@ -267,6 +267,8 @@ void playTurn(vector<Player>&enemies, Player &hero){
     switch(picked){
 
         case -1:
+        initializePlayerCards(cards,hero);
+        updatePickedCards(hero);
         heroMakeTurn(&hero, enemies);
         break;
 
@@ -302,8 +304,8 @@ int main(){//make different difficulty levels? create bosses?
     heroMakeTurn(&hero, enemies);
 
 
-    for(int i =0; i<5; i++){
-        playTurn(enemies, hero);
+    for(int i =0; i<10; i++){
+        playTurn(enemies, hero, cards);
     }//TODO: check if everyone live and make speed 0 if dead
     
     

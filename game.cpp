@@ -55,6 +55,7 @@ void Card::hit(Player &abuser, Player &victim){
     victim.setHealth(max(victim.getHealth()-powerHit*abuser.getPower()*0.01,0.00));
 }
 void Card::heal(Player &abuser, Player &victim){
+    if(victim.getHealth()<=0)return;
     victim.setHealth(min(victim.getHealth()+powerHeal*abuser.getPower()*0.01, 100.00));
 }
 void Card::increasePower(Player &increaser, Player &target){
@@ -117,7 +118,7 @@ vector<Card> initializeCards() {
 }
 
 vector<Player> initializeEnemies(){//Player(health, power, name, speed) TODO:make different max health?
-    return {{10, 10 , "healer",20}, {100,30, "warrior",30}, {100,40, "magician",20}};//TODO: better balance in game
+    return {{10, 10 , "healer",20}, {10,10, "warrior",30}, {10,10, "magician",10}};//TODO: better balance in game
 }
 
 int pickPlayer(vector<Player>&enemies, Player &hero){
@@ -143,12 +144,26 @@ int pickPlayer(vector<Player>&enemies, Player &hero){
     return 100000;
 }
 
-void CheckIfEnemiesDead(vector<Player>&enemies, Player hero){
+bool checkIfEnemiesDead(vector<Player>&enemies){
+    bool allDead = true;
     for(Player& p: enemies){
-        if(p.getHealth()==0){
+        if(p.getHealth()<=0){
             p.setPower(0);
             p.setSpeed(0);
+        }else{
+            allDead = false;
         }
+    }return allDead;
+}
+
+bool checkIfHeroDead(Player &hero){
+    if(hero.getHealth()<=0){
+        hero.setHealth(0);
+        hero.setPower(0);
+        hero.setSpeed(0);
+        return true;
+    }else{
+        return false;
     }
 }
 
@@ -184,12 +199,14 @@ void heroMakeTurn(Player *hero, vector<Player>&enemies){
 
 void healerMakeTurn(vector<Player>&enemies){
     for(Player& p :enemies){
-        p.setHealth(min(enemies[0].getPower()*0.01*30+p.getHealth(), 100.00));
+        if(p.getHealth()>0){
+            p.setHealth(min(enemies[0].getPower()*0.01*30+p.getHealth(), 100.00));
+        }
     }
 }
 
 void warriorMakeTurn(vector<Player>&enemies, Player &hero){
-    hero.setHealth(max(hero.getHealth()-enemies[1].getPower()*0.01*5, 0.0));
+    hero.setHealth(max(hero.getHealth()-enemies[1].getPower()*0.01*50, 0.0));
 }
 
 void wizardMakeTurn(vector<Player>&enemies){
@@ -259,6 +276,11 @@ void writeWhoseTurn(int picked) {
     }
 }
 
+void writeGameOver(string heroWon){
+    std::ofstream file("gameover.txt", std::ios::trunc);
+    file<< heroWon;
+}
+
 void playTurn(vector<Player>&enemies, Player &hero){
     updatePlayersInfo(enemies,hero);
     waitUntilNextTurn();
@@ -287,7 +309,6 @@ void playTurn(vector<Player>&enemies, Player &hero){
         default:
         return;
     }
-    CheckIfEnemiesDead(enemies, hero);
 }
 
 int main(){//make different difficulty levels? create bosses?
@@ -299,12 +320,26 @@ int main(){//make different difficulty levels? create bosses?
     updatePlayersInfo(enemies, hero);
     initializePlayerCards(cards, hero);
     
-    for(int i =0; i<10; i++){
+    bool allDead, heroDead =false;
+    while(!allDead && !heroDead){
         playTurn(enemies, hero);
-    }//TODO: check if everyone live and make speed 0 if dead
-    
-    
-    
-    writeWhoseTurn(69);
+        allDead = checkIfEnemiesDead(enemies);
+        heroDead = checkIfHeroDead(hero);
+        writeGameOver("N");
+    }
+    if(allDead){
+        writeGameOver("W");
+    }else{writeGameOver("F");}
+    updatePlayersInfo(enemies,hero);
     return 0;
 }
+//todo: game balance?
+//todo: new cards and board
+//todo: synchronization?json?
+//todo: add animation for kill
+//todo: check if game over in java
+//todo: add hero
+//todo: meet prof's expectations 
+//todo: delete all the txt files at the end
+//todo: explain rules at start
+//todo: better UI for health etc

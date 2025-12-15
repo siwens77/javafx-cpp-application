@@ -76,6 +76,23 @@ public class Controller {
         click1.setVolume(1.0);
     }
 
+    public static void clearFiles() {
+        String[] files = {
+            "clickedCard.txt",
+            "statistics.txt",
+            "clickedCat.txt",
+            "whosturn.txt"
+        };
+
+        for (String filePath : files) {
+            try (FileWriter fw = new FileWriter(filePath, false)) {
+                // Opening FileWriter with append=false truncates the file
+            } catch (IOException e) {
+                System.err.println("Failed to clear file: " + filePath);
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void setMainWindow(Stage stage) {
         this.stage = stage;
@@ -184,7 +201,7 @@ public class Controller {
 
     @FXML
     void PlayB(ActionEvent event) throws IOException {
-        
+        clearFiles();
         click1.play();
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("racescene.fxml"));
@@ -208,6 +225,7 @@ public class Controller {
     @FXML
     void closeB(ActionEvent e) throws IOException{
         click1.play();
+        clearFiles();
         if (gameProcess != null && gameProcess.isAlive()) {
             gameProcess.destroyForcibly();
         }
@@ -320,9 +338,9 @@ public class Controller {
 
     @FXML
     void nextTurn(ActionEvent e){
-        sendClicks();
-        markPlayer(this);
         updateStatistic(this);
+        markPlayer(this);
+        sendClicks();
     }
 
 }

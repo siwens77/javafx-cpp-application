@@ -81,15 +81,15 @@ public class Controller {
             "clickedCard.txt",
             "statistics.txt",
             "clickedCat.txt",
-            "whosturn.txt"
+            "whosturn.txt",
+            "gameover.txt",
+            "cards.txt"
         };
 
         for (String filePath : files) {
-            try (FileWriter fw = new FileWriter(filePath, false)) {
-                // Opening FileWriter with append=false truncates the file
-            } catch (IOException e) {
-                System.err.println("Failed to clear file: " + filePath);
-                e.printStackTrace();
+            File file = new File(filePath);
+            if (file.exists()) {
+                boolean deleted = file.delete();
             }
         }
     }

@@ -338,7 +338,7 @@ int main(){//make different difficulty levels? create bosses?
 //todo: synchronization?json?
 //todo: add animation for kill
 //todo: check if game over in java
-//todo: add hero
+//todo: add hero UI
 //todo: meet prof's expectations 
 //todo: delete all the txt files at the end
 //todo: explain rules at start

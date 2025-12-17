@@ -282,8 +282,9 @@ void writeGameOver(string heroWon){
     file<< heroWon;
 }
 
-void playTurn(vector<Player>&enemies, Player &hero){
+void playTurn(vector<Player>&enemies, Player &hero, vector<Card> cards){
     updatePlayersInfo(enemies,hero);
+    initializePlayerCards(cards,hero);
     waitUntilNextTurn();
     clearFiles();
 
@@ -323,7 +324,7 @@ int main(){
     
     bool allDead, heroDead =false;
     while(!allDead && !heroDead){
-        playTurn(enemies, hero);
+        playTurn(enemies, hero,cards);
         allDead = checkIfEnemiesDead(enemies);
         heroDead = checkIfHeroDead(hero);
         writeGameOver("N");

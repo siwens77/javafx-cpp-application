@@ -252,6 +252,16 @@ void waitUntilNextTurn() {
     }
 }
 
+void waitUntilNextTurn2() {
+    while (true) {
+        std::ifstream file("cards.txt", std::ios::ate);
+        if (file && file.tellg() == 0) {
+            return; 
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+}
+
 void writeWhoseTurn(int picked) {
     std::ofstream file("whosturn.txt", std::ios::trunc);
 
@@ -293,6 +303,7 @@ void playTurn(vector<Player>&enemies, Player &hero, vector<Card> cards){
     switch(picked){
 
         case -1:
+        waitUntilNextTurn2();
         heroMakeTurn(&hero, enemies);
         break;
 

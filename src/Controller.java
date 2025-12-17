@@ -238,7 +238,7 @@ public class Controller {
         String exePath = new File("game").getAbsolutePath();
         ProcessBuilder pb = new ProcessBuilder(exePath);
         gameProcess = pb.start();
-        markPlayer(controller);
+        markPlayer(controller,true);
         updateStatistic(controller);
         updateCards(controller);
     }
@@ -281,7 +281,7 @@ public class Controller {
         }
     }
     
-    void markPlayer(Controller controller){
+    void markPlayer(Controller controller, boolean first){
         new Thread(() -> {
             String filePath = "whosturn.txt";
             File file = new File(filePath);
@@ -299,10 +299,10 @@ public class Controller {
                 Platform.runLater(() -> {
                     switch(line0){
                         case "hero":
-                            updateCards(this);
                             controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                            if(!first){updateCards(this);}
                             break;
                         case "healer":
                             controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
@@ -383,7 +383,7 @@ public class Controller {
     void nextTurn(ActionEvent e){
         updateStatistic(this);
         checkGameOver();
-        markPlayer(this);
+        markPlayer(this,false);
         sendClicks();
     }
 

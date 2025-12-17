@@ -102,13 +102,17 @@ vector<Card> initializeCards() {
     Card goldHealCard("goldHeal", "rare card healing 50p", 1,0,50,0,0); 
     Card powerCard("power", "common card increasing power by 25p", 0,0,0,25,0);
     Card goldPowerCard("goldPower", "rare card increasing power by 50p", 0,0,0,50,0);
-    //TODO: card increasing speed
-    //TODO: joker increasing everything
-    //TODO: card setting every attibrute to 1 
-    //TODO: card giving power but setting health to 1
-    //TODO: card exchanging attributes BANGER   
-    //TODO: card making enemiee do sth against will
-    //TODO: card making wizard attack and warrior throw spells
+    Card speedCard("speed", "common card increasing speed by 20p", 0,0,0,0,20);
+    Card goldSpeedCard("goldSpeed", "common card increasing speed by 400p", 0,0,0,0,40);
+    Card jokerCard("joker", "rare card increasing everything by 30",0,30,30,30,30);
+    Card goldJokerCard("goldJoker", "very rare card increasing everything by 50",0,50,50,50,50);
+    Card gamblerCard("gambler", "rare card power +20 and speed +20 but health to -40",0,40,0,20,20);
+    //TODO: card exchanging attributes BANGER
+    cards.push_back(gamblerCard);
+    cards.push_back(goldJokerCard);
+    cards.push_back(jokerCard);
+    cards.push_back(goldSpeedCard);
+    cards.push_back(speedCard);
     cards.push_back(hitCard);
     cards.push_back(goldHitCard);
     cards.push_back(healCard);
@@ -346,13 +350,10 @@ int main(){
     updatePlayersInfo(enemies,hero);
     return 0;
 }
-//todo: game balance?
-//todo: new cards and board
-//todo: synchronization?json?
-//todo: add animation for kill
-//todo: set cool end game screen
-//todo: move controllers
-//todo: add hero UI
-//todo: meet prof's expectations 
 //todo: explain rules at start
+//todo: set cool end game screen
+//todo: add hero UI
 //todo: better UI for health etc
+//todo: meet prof's expectations 
+//todo: new drawings of cards and board 
+//todo: game balance

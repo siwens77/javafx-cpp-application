@@ -94,8 +94,8 @@ public class Controller {
         }
     }
 
-    public void endGame(){
-        clearFiles();
+    public void endGame(String whoWon){
+        clearFiles();//TODO: whoWon cases
         if (gameProcess != null && gameProcess.isAlive()) {
             gameProcess.destroyForcibly();
         }
@@ -234,7 +234,7 @@ public class Controller {
     @FXML
     void closeB(ActionEvent e) throws IOException{
         click1.play();
-        endGame();
+        endGame("C");
     }
 
     @FXML
@@ -356,13 +356,8 @@ public class Controller {
                 String line0 = br.readLine();
                 new PrintWriter(filePath).close();
                 Platform.runLater(() -> {
-                    switch(line0){
-                        case "W":
-                        case "F":
-                        endGame();
-                        break;
-                        default:
-                        break;
+                    if ("W".equals(line0) || "F".equals(line0)){
+                        endGame(line0);
                     }
                 });
 

@@ -17,10 +17,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.Collections;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 
 
 
@@ -94,14 +92,29 @@ public class Controller {
         }
     }
 
-    public void endGame(String whoWon){
-        clearFiles();//TODO: whoWon cases
+    public void endGame(String whoWon) {
+        clearFiles(); 
         if (gameProcess != null && gameProcess.isAlive()) {
             gameProcess.destroyForcibly();
         }
-        stage = (Stage)scenePane.getScene().getWindow();
-        stage.close();
+    
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("endGame.fxml"));
+            Parent root = loader.load();
+    
+            GameOverController controller = loader.getController();
+            controller.setWinner(whoWon);
+    
+            Stage stage = (Stage) scenePane.getScene().getWindow();
+            Scene scene = new Scene(root, 800, 578);
+            stage.setScene(scene);
+            stage.show();
+    
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+    
 
     public void setMainWindow(Stage stage) {
         this.stage = stage;

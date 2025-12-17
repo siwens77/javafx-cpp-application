@@ -311,7 +311,7 @@ void playTurn(vector<Player>&enemies, Player &hero){
     }
 }
 
-int main(){//make different difficulty levels? create bosses?
+int main(){
     clearFiles();
     vector<Card>cards = initializeCards();
     vector<Player>enemies = initializeEnemies();
@@ -337,9 +337,9 @@ int main(){//make different difficulty levels? create bosses?
 //todo: new cards and board
 //todo: synchronization?json?
 //todo: add animation for kill
-//todo: check if game over in java
+//todo: set cool end game screen
+//todo: move controllers
 //todo: add hero UI
 //todo: meet prof's expectations 
-//todo: delete all the txt files at the end
 //todo: explain rules at start
 //todo: better UI for health etc

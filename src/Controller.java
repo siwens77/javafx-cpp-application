@@ -94,6 +94,15 @@ public class Controller {
         }
     }
 
+    public void endGame(){
+        clearFiles();
+        if (gameProcess != null && gameProcess.isAlive()) {
+            gameProcess.destroyForcibly();
+        }
+        stage = (Stage)scenePane.getScene().getWindow();
+        stage.close();
+    }
+
     public void setMainWindow(Stage stage) {
         this.stage = stage;
     }
@@ -225,12 +234,7 @@ public class Controller {
     @FXML
     void closeB(ActionEvent e) throws IOException{
         click1.play();
-        clearFiles();
-        if (gameProcess != null && gameProcess.isAlive()) {
-            gameProcess.destroyForcibly();
-        }
-        stage = (Stage)scenePane.getScene().getWindow();
-        stage.close();
+        endGame();
     }
 
     @FXML
@@ -336,9 +340,42 @@ public class Controller {
         tmpFile2.renameTo(txtFile2);
     }
 
+    void checkGameOver(){
+        new Thread(() -> {
+            String filePath = "gameover.txt";
+            File file = new File(filePath);
+            while (!file.exists() || file.length() == 0) {
+                try {
+                    Thread.sleep(100); 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return;
+                }
+            }
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line0 = br.readLine();
+                new PrintWriter(filePath).close();
+                Platform.runLater(() -> {
+                    switch(line0){
+                        case "W":
+                        case "F":
+                        endGame();
+                        break;
+                        default:
+                        break;
+                    }
+                });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     @FXML
     void nextTurn(ActionEvent e){
         updateStatistic(this);
+        checkGameOver();
         markPlayer(this);
         sendClicks();
     }

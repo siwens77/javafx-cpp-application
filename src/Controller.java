@@ -356,7 +356,7 @@ public class Controller {
                 String line0 = br.readLine();
                 new PrintWriter(filePath).close();
                 Platform.runLater(() -> {
-                    if ("W".equals(line0) || "F".equals(line0)){
+                    if ("W".equals(line0) || "L".equals(line0)){
                         endGame(line0);
                     }
                 });

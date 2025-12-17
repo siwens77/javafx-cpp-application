@@ -329,7 +329,7 @@ int main(){//make different difficulty levels? create bosses?
     }
     if(allDead){
         writeGameOver("W");
-    }else{writeGameOver("F");}
+    }else{writeGameOver("L");}
     updatePlayersInfo(enemies,hero);
     return 0;
 }

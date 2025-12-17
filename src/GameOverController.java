@@ -6,7 +6,7 @@ public class GameOverController {
     @FXML
     private Label whoWonLabel;
 
-    public void setWinner(String winner) {
+    public void displayWinner(String winner) {
 
         
         switch(winner){

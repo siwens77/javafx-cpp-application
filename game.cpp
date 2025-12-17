@@ -78,10 +78,11 @@ void updatePlayersInfo(vector<Player>enemies, Player hero){
 
 void updatePickedCards(Player hero){
     vector<Card>cards = hero.getCards();
-    ofstream outFile("cards.txt");
+    ofstream outFile("cards.tmp");
     for(int i = 0 ; i<cards.size(); i++){
         outFile<< "resources/images/"<<cards[i].name<< ".png"<<endl;
     }
+    rename("cards.tmp",  "cards.txt");
 }
 
 void clearFiles() {

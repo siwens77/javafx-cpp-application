@@ -66,12 +66,20 @@ public class Controller {
     private ImageView cat2View;
     @FXML
     private ImageView cat3View;
+    static {
+        URL sound = Controller.class.getResource("resources/sounds/click.wav");
+        click1 = new AudioClip(sound.toString());
+    }
 
     @FXML
     private void initialize() {
         click1.setVolume(0);
         click1.play();
         click1.setVolume(1.0);
+    }
+
+    public void setMainWindow(Stage stage) {
+        this.stage = stage;
     }
 
     public static void clearFiles() {
@@ -81,7 +89,9 @@ public class Controller {
             "clickedCat.txt",
             "whosturn.txt",
             "gameover.txt",
-            "cards.txt"
+            "cards.txt",
+            "clickedCard.tmp",
+            "clickedCat.tmp"
         };
 
         for (String filePath : files) {
@@ -103,7 +113,7 @@ public class Controller {
             Parent root = loader.load();
     
             GameOverController controller = loader.getController();
-            controller.setWinner(whoWon);
+            controller.displayWinner(whoWon);
     
             Stage stage = (Stage) scenePane.getScene().getWindow();
             Scene scene = new Scene(root, 800, 578);
@@ -113,16 +123,6 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    
-
-    public void setMainWindow(Stage stage) {
-        this.stage = stage;
-    }
-
-    static {
-        URL sound = Controller.class.getResource("resources/sounds/click.wav");
-        click1 = new AudioClip(sound.toString());
     }
 
     public void updateStatistic(Controller controller){
@@ -223,7 +223,6 @@ public class Controller {
 
     @FXML
     void PlayB(ActionEvent event) throws IOException {
-        clearFiles();
         click1.play();
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("racescene.fxml"));

@@ -182,7 +182,7 @@ void heroMakeTurn(Player *hero, vector<Player>&enemies){
         getline(MyFile, idPickedCard); 
         getline(MyFile2, idPickedCat); 
         if ((idPickedCard == "0" ||idPickedCard == "1" ||idPickedCard == "2") 
-        && (idPickedCat == "0" ||idPickedCat == "1" ||idPickedCat == "2")){
+        && (idPickedCat == "0" ||idPickedCat == "1" ||idPickedCat == "2" || idPickedCat=="-1")){
             MyFile.close();
             MyFile2.close();
             break;
@@ -352,8 +352,6 @@ int main(){
 }
 //todo: explain rules at start
 //todo: set cool end game screen
-//todo: add hero UI
-//todo: better UI for health etc
 //todo: meet prof's expectations 
 //todo: new drawings of cards and board 
 //todo: game balance

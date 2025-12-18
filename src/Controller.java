@@ -66,6 +66,8 @@ public class Controller {
     private ImageView cat2View;
     @FXML
     private ImageView cat3View;
+    @FXML
+    private ImageView catHeroView;
     static {
         URL sound = Controller.class.getResource("resources/sounds/click.wav");
         click1 = new AudioClip(sound.toString());
@@ -154,33 +156,33 @@ public class Controller {
                 String power0 = words0.length > 0 ? words0[1] : "";
                 String speed0 = words0.length > 0 ? words0[2] : "";
                 Platform.runLater(() -> {
-                    controller.heroHealthText.setText(health0);
-                    controller.heroSpeedText.setText(speed0);
-                    controller.heroPowerText.setText(power0);
+                    controller.heroHealthText.setText("health: "+health0);
+                    controller.heroSpeedText.setText("speed: "+speed0);
+                    controller.heroPowerText.setText("power: "+power0);
                 });
                 String health1 = words1.length > 0 ? words1[0] : "";
                 String power1 = words1.length > 0 ? words1[1] : "";
                 String speed1 = words1.length > 0 ? words1[2] : "";
                 Platform.runLater(() -> {
-                    controller.healerHealthText.setText(health1);
-                    controller.healerSpeedText.setText(speed1);
-                    controller.healerPowerText.setText(power1);
+                    controller.healerHealthText.setText("health: "+health1);
+                    controller.healerSpeedText.setText("speed: "+speed1);
+                    controller.healerPowerText.setText("power: "+power1);
                 });
                 String health2 = words2.length > 0 ? words2[0] : "";
                 String power2 = words2.length > 0 ? words2[1] : "";
                 String speed2 = words2.length > 0 ? words2[2] : "";
                 Platform.runLater(() -> {
-                    controller.warriorHealthText.setText(health2);
-                    controller.warriorSpeedText.setText(speed2);
-                    controller.warriorPowerText.setText(power2);
+                    controller.warriorHealthText.setText("health: "+health2);
+                    controller.warriorSpeedText.setText("speed: "+speed2);
+                    controller.warriorPowerText.setText("power: "+power2);
                 });
                 String health3 = words3.length > 0 ? words3[0] : "";
                 String power3 = words3.length > 0 ? words3[1] : "";
                 String speed3 = words3.length > 0 ? words3[2] : "";
                 Platform.runLater(() -> {
-                    controller.wizardHealthText.setText(health3);
-                    controller.wizardSpeedText.setText(speed3);
-                    controller.wizardPowerText.setText(power3);
+                    controller.wizardHealthText.setText("health: "+health3);
+                    controller.wizardSpeedText.setText("speed: "+speed3);
+                    controller.wizardPowerText.setText("power: "+power3);
                 });
 
 
@@ -299,22 +301,26 @@ public class Controller {
                 Platform.runLater(() -> {
                     switch(line0){
                         case "hero":
+                            controller.catHeroView.getStyleClass().add("card-frame");
                             controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             if(!first){updateCards(this);}
                             break;
                         case "healer":
+                            controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat1View.getStyleClass().add("card-frame");
                             break;
                         case "warrior":
+                            controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat2View.getStyleClass().add("card-frame");
                             break;
                         case "wizard":
+                            controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                             controller.cat3View.getStyleClass().add("card-frame");
@@ -341,6 +347,11 @@ public class Controller {
     @FXML
     void cat3click(ActionEvent e){
         writeClickedCat("2");
+    }
+
+    @FXML
+    void catHeroClick(ActionEvent e) {
+        writeClickedCat("-1");
     }
 
     void sendClicks(){

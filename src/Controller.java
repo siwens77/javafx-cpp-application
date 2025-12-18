@@ -20,8 +20,7 @@ import java.net.URL;
 import java.util.Collections;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Tooltip;
-
+import javafx.scene.control.Label;
 
 public class Controller {
 
@@ -75,6 +74,8 @@ public class Controller {
     private Tooltip card2Tooltip;
     @FXML
     private Tooltip card3Tooltip;
+    @FXML
+    private Label rulesLabel;
     static {
         URL sound = Controller.class.getResource("resources/sounds/click.wav");
         click1 = new AudioClip(sound.toString());
@@ -237,7 +238,20 @@ public class Controller {
     }
 
     @FXML
-    void PlayB(ActionEvent event) throws IOException {
+    void PlayB(ActionEvent event)throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("rules.fxml"));
+        Parent root = loader.load();
+        Controller controller = loader.getController();
+
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root, 800, 578);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
+    void PlayB2(ActionEvent event) throws IOException {
         click1.play();
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("racescene.fxml"));

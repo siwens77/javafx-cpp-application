@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Tooltip;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import java.io.BufferedReader;
@@ -19,7 +20,7 @@ import java.net.URL;
 import java.util.Collections;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.control.Tooltip;
 
 
 public class Controller {
@@ -68,6 +69,12 @@ public class Controller {
     private ImageView cat3View;
     @FXML
     private ImageView catHeroView;
+    @FXML
+    private Tooltip card1Tooltip;
+    @FXML
+    private Tooltip card2Tooltip;
+    @FXML
+    private Tooltip card3Tooltip;
     static {
         URL sound = Controller.class.getResource("resources/sounds/click.wav");
         click1 = new AudioClip(sound.toString());
@@ -207,13 +214,19 @@ public class Controller {
     
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String line1 = br.readLine();
+                String line1_1 = br.readLine();
                 String line2 = br.readLine();
+                String line2_2 = br.readLine();
                 String line3 = br.readLine();
+                String line3_3 = br.readLine();
                 new PrintWriter(filePath).close();
                 Platform.runLater(() -> {
                     controller.card1.setImage(new Image(getClass().getResource(line1).toExternalForm()));
+                    controller.card1Tooltip.setText(line1_1);
                     controller.card2.setImage(new Image(getClass().getResource(line2).toExternalForm()));
+                    controller.card2Tooltip.setText(line2_2);
                     controller.card3.setImage(new Image(getClass().getResource(line3).toExternalForm()));
+                    controller.card3Tooltip.setText(line3_3);
                 });
 
 

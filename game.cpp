@@ -105,7 +105,7 @@ vector<Card> initializeCards() {
     Card goldPowerCard("goldPower", "rare card increasing power by 50p", 1,0,0,50,0);
     Card speedCard("speed", "common card increasing speed by 20p", 1,0,0,0,20);
     Card goldSpeedCard("goldSpeed", "common card increasing speed by 400p", 1,0,0,0,40);
-    Card jokerCard("joker", "rare card increasing everything by 30",1,30,30,30,30);
+    Card jokerCard("joker", "rare card increasing everything by 30",1,0,30,30,30);
     Card goldJokerCard("goldJoker", "very rare card increasing everything by 50",1,0,50,50,50);
     Card gamblerCard("gambler", "rare card power +20 and speed +20 but health to -40",1,40,0,20,20);
     Card mysteryCard("mystery", "card with hidden meaning",0,30,0,30,30);
@@ -326,7 +326,7 @@ void playTurn(vector<Player>&enemies, Player &hero, vector<Card> cards){
         break;
 
         default:
-        return;
+        return;//todo: raise error here
     }
 }
 
@@ -354,5 +354,4 @@ int main(){
 }
 //todo: set cool end game screen
 //todo: meet prof's expectations
-//todo: new drawings of board
 //todo: game balance

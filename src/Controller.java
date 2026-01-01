@@ -129,9 +129,6 @@ public class Controller {
             case "L":
                 endLabel.setText("GAME OVER\nYOU LOST!");
                 break;
-                case "C":
-                    endLabel.setText("GAME OVER\nPUSSY?");
-                    break;
             default:
                 break;
         }

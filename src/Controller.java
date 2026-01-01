@@ -21,6 +21,7 @@ import java.util.Collections;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 
 public class Controller {
 
@@ -76,6 +77,10 @@ public class Controller {
     private Tooltip card3Tooltip;
     @FXML
     private Label rulesLabel;
+    @FXML
+    private Button closeButton;
+    @FXML
+    private Label endLabel;
     static {
         URL sound = Controller.class.getResource("resources/sounds/click.wav");
         click1 = new AudioClip(sound.toString());
@@ -117,22 +122,21 @@ public class Controller {
         if (gameProcess != null && gameProcess.isAlive()) {
             gameProcess.destroyForcibly();
         }
-    
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("endGame.fxml"));
-            Parent root = loader.load();
-    
-            GameOverController controller = loader.getController();
-            controller.displayWinner(whoWon);
-    
-            Stage stage = (Stage) scenePane.getScene().getWindow();
-            Scene scene = new Scene(root, 800, 578);
-            stage.setScene(scene);
-            stage.show();
-    
-        } catch (IOException e) {
-            e.printStackTrace();
+        switch(whoWon){
+            case "W":
+                endLabel.setText("GAME OVER\nYOU WON!");
+                break;
+            case "L":
+                endLabel.setText("GAME OVER\nYOU LOST!");
+                break;
+                case "C":
+                    endLabel.setText("GAME OVER\nPUSSY?");
+                    break;
+            default:
+                break;
         }
+        scenePane.setVisible(false);
+        endLabel.setVisible(true);
     }
 
     public void updateStatistic(Controller controller){
@@ -273,9 +277,15 @@ public class Controller {
     }
 
     @FXML
-    void closeB(ActionEvent e) throws IOException{
+    void closeB(ActionEvent e) {
         click1.play();
-        endGame("C");
+    
+        if (gameProcess != null && gameProcess.isAlive()) {
+            gameProcess.destroyForcibly();
+        }
+    
+        Platform.exit();
+        System.exit(0);
     }
 
     @FXML

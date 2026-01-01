@@ -207,3 +207,24 @@
     -fx-background-position: center 40%;
 
 }
+
+
+.end-game-label {
+    -fx-font-size: 48px;
+    -fx-font-family: "Kiddosy free"; 
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 40px;
+
+    -fx-background-color: rgba(34, 33, 33, 0.7);
+    -fx-background-radius: 20;
+
+    -fx-border-color: gold;
+    -fx-border-width: 3;
+    -fx-border-radius: 20;
+
+    -fx-effect: dropshadow(gaussian, black, 20, 0.5, 0, 0);
+}

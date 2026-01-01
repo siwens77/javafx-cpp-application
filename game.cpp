@@ -352,6 +352,5 @@ int main(){
     updatePlayersInfo(enemies,hero);
     return 0;
 }
-//todo: set cool end game screen
 //todo: meet prof's expectations
 //todo: game balance

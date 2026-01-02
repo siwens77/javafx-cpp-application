@@ -31,17 +31,30 @@ void updatePlayersInfo(std::vector<Player> &enemies,Player &hero){
 void updatePickedCards(Player &hero){
     vector<Card>cards = hero.getCards();
     ofstream outFile("cards.tmp");
+    if(!outFile.is_open()){
+        cerr << "ERROR IN OPENING TMP FILE CARDS!";
+        return;
+    }
     for(int i = 0 ; i<cards.size(); i++){
         outFile<< "resources/images/"<<cards[i].getName()<< ".png"<<endl;
         outFile<< cards[i].getDescription()<<endl;
+        if(outFile.fail()){
+            cerr << "ERROR IN WRITING TO TMP FILE CARDS!";
+        }
     }
-    rename("cards.tmp",  "cards.txt");
+    if(rename("cards.tmp", "cards.txt") != 0) {
+        cerr << "ERROR RENAMING cards.tmp TO cards.txt\n";
+    }
 }
 
 void clearFiles() {
     const char* files[] = {"clickedCard.txt", "statistics.txt", "clickedCat.txt","whosturn.txt"};
     for (const char* file : files) {
-        std::ofstream out(file, std::ios::trunc);
+        ofstream out(file, ios::trunc);
+        if (!out) {
+            cerr << "ERROR, COULDNT OPEN FILE '" << file << "' FOR CLEARING\n";
+            continue;
+        }
         out.close();
     }
 }

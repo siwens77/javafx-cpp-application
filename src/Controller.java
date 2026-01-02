@@ -265,7 +265,7 @@ public class Controller {
         stage.show();
     
 
-        String exePath = new File("game").getAbsolutePath();
+        String exePath = new File("bin/CatsBattle").getAbsolutePath();
         ProcessBuilder pb = new ProcessBuilder(exePath);
         gameProcess = pb.start();
         markPlayer(controller,true);
@@ -275,6 +275,7 @@ public class Controller {
 
     @FXML
     void closeB(ActionEvent e) {
+        clearFiles();
         click1.play();
     
         if (gameProcess != null && gameProcess.isAlive()) {

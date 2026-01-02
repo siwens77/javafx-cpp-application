@@ -1,3 +1,4 @@
+#include "utils.hpp"
 #include <iostream>
 #include <algorithm>
 #include <random>
@@ -7,80 +8,17 @@
 #include <chrono>
 using namespace std;
 
-class Player;
-class Card;
-
-class Card{
-private:
-    string name;
-    string description;
-    double probability;
-    int powerHit;
-    int powerHeal;
-    int powerPower;
-    int PowerSpeed;
-    
-public:
-    Card(string n, string desc, double prob, int powHit, int powHeal, int powPow, int powSpeed) 
-    : name(n), description(desc), probability(prob), powerHit(powHit) , powerHeal(powHeal) , powerPower(powPow), PowerSpeed(powSpeed){} 
-    void hit(Player& abuser, Player& victim);
-    void heal(Player& abuser, Player& victim);
-    void increasePower(Player& increaser, Player& target);
-    void increaseSpeed(Player& increaser, Player& target);
-    double getProbability(){return this->probability;}
-    string getDescription(){return this-> description;}
-    string getName(){return this-> name;}
-};
-
-class Player{
-    private:
-    int health;
-    int power;
-    int speed;
-    string name;
-    vector<Card> cards;
-    public:
-    Player(int h, int p, string n, int s) : health(h), power(p), name(n), speed(s) {};
-
-    int getSpeed(){return speed;}
-    int getHealth(){return health;}
-    int getPower(){return power;}
-    string getName(){return name;}
-    vector<Card>& getCards(){return cards;}
-
-    void setSpeed(int s){speed = s;}
-    void setHealth(int h){health = h;}
-    void setPower(int p){power = p;}
-    void setCards(vector<Card> c){cards = c;}
-};
-
-
-void Card::hit(Player &abuser, Player &victim){
-    victim.setHealth(max(victim.getHealth()-powerHit*abuser.getPower()*0.01,0.00));
-}
-void Card::heal(Player &abuser, Player &victim){
-    if(victim.getHealth()<=0)return;
-    victim.setHealth(min(victim.getHealth()+powerHeal*abuser.getPower()*0.01, 100.00));
-}
-void Card::increasePower(Player &increaser, Player &target){
-    target.setPower(target.getPower()+powerPower*increaser.getPower()*0.01);
-}
-void Card::increaseSpeed(Player &increaser, Player &target){
-    target.setSpeed(target.getSpeed()+PowerSpeed*increaser.getPower()*0.01);
-}
-
-void updatePlayersInfo(vector<Player>enemies, Player hero){
+void updatePlayersInfo(std::vector<Player> &enemies,Player &hero){
     ofstream outFile2("statistics.tmp");
     outFile2<< hero.getHealth()<< " "<<hero.getPower()<< " "<<hero.getSpeed()<<endl;
     for(int i = 0;i<3; i++){
         outFile2<< enemies[i].getHealth() << " "<< enemies[i].getPower()<<" "<<enemies[i].getSpeed()<<endl;
     }
+    outFile2.close();
     rename("statistics.tmp", "statistics.txt");
-
-    return;
 }
 
-void updatePickedCards(Player hero){
+void updatePickedCards(Player &hero){
     vector<Card>cards = hero.getCards();
     ofstream outFile("cards.tmp");
     for(int i = 0 ; i<cards.size(); i++){
@@ -128,8 +66,8 @@ vector<Card> initializeCards() {
     return cards;
 }
 
-vector<Player> initializeEnemies(){//Player(health, power, name, speed) TODO:make different max health?
-    return {{10, 10 , "healer",20}, {10,10, "warrior",30}, {10,10, "magician",10}};//TODO: better balance in game
+vector<Player> initializeEnemies(){//Player(health, power, name, speed) 
+    return {{10, 10 , "healer",20}, {10,10, "warrior",30}, {10,10, "magician",10}};
 }
 
 int pickPlayer(vector<Player>&enemies, Player &hero){
@@ -208,12 +146,14 @@ void heroMakeTurn(Player *hero, vector<Player>&enemies){
 
 }
 
-void healerMakeTurn(vector<Player>&enemies){
-    for(Player& p :enemies){
-        if(p.getHealth()>0){
-            p.setHealth(min(enemies[0].getPower()*0.01*30+p.getHealth(), 100.00));
+void healerMakeTurn(std::vector<Player>& enemies){
+    auto healerPower = enemies[0].getPower() * 0.01 * 30;
+
+    std::for_each(enemies.begin(), enemies.end(), [&](Player& p){
+        if(p.getHealth() > 0){
+            p.setHealth(std::min(healerPower + p.getHealth(), 100.0));
         }
-    }
+    });
 }
 
 void warriorMakeTurn(vector<Player>&enemies, Player &hero){
@@ -226,7 +166,7 @@ void wizardMakeTurn(vector<Player>&enemies){
     }
 }
 
-void initializePlayerCards(vector<Card> cards, Player &hero) {
+void initializePlayerCards(vector<Card> &cards, Player &hero) {
     vector<Card> picked;
     static std::mt19937 rng(std::random_device{}());
 
@@ -330,31 +270,6 @@ void playTurn(vector<Player>&enemies, Player &hero, vector<Card> cards){
         break;
 
         default:
-        return;//todo: raise error here
+        return;
     }
 }
-
-int main(){
-    clearFiles();
-    vector<Card>cards = initializeCards();
-    vector<Player>enemies = initializeEnemies();
-    Player hero(100,100, "hero", 30);
-
-    updatePlayersInfo(enemies, hero);
-    initializePlayerCards(cards, hero);
-    
-    bool allDead, heroDead =false;
-    while(!allDead && !heroDead){
-        playTurn(enemies, hero,cards);
-        allDead = checkIfEnemiesDead(enemies);
-        heroDead = checkIfHeroDead(hero);
-        writeGameOver("N");
-    }
-    if(allDead){
-        writeGameOver("W");
-    }else{writeGameOver("L");}
-    updatePlayersInfo(enemies,hero);
-    return 0;
-}
-//todo: meet prof's expectations
-//todo: game balance

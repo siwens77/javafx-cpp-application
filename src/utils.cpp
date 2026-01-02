@@ -233,27 +233,18 @@ void waitUntilNextTurn2() {
 }
 
 void writeWhoseTurn(int picked) {
-    std::ofstream file("whosturn.txt", std::ios::trunc);
+    ofstream file("whosturn.txt", std::ios::trunc);
+    if(!file.is_open()){
+        cerr << "ERROR IN OPENING WHOSTURN FILE FOR CLEARING!";
+        return;
+    }
 
     switch (picked) {
-        case -1:
-            file << "hero";
-            break;
-        case 1:
-            file << "wizard";
-            break;
-        case 2:
-            file << "warrior";
-            break;
-        case 3:
-            file << "healer";
-            break;
-        case 69:
-            file << "END";
-            break;
-        default:
-            file << "unknown";
-            break;
+        case static_cast<int>(Picked::hero): file<<"hero"; break;
+        case static_cast<int>(Picked::wizard): file<<"wizard"; break;
+        case static_cast<int>(Picked::warrior): file<<"warrior"; break;
+        case static_cast<int>(Picked::healer): file<<"healer"; break;
+        default: file<<"unknown"; break;
     }
 }
 

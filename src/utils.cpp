@@ -10,12 +10,22 @@ using namespace std;
 
 void updatePlayersInfo(std::vector<Player> &enemies,Player &hero){
     ofstream outFile2("statistics.tmp");
+    if(!outFile2.is_open()){
+        cerr << "ERROR IN OPENING TMP FILE STATISTICS!";
+        return;
+    }
     outFile2<< hero.getHealth()<< " "<<hero.getPower()<< " "<<hero.getSpeed()<<endl;
     for(int i = 0;i<3; i++){
         outFile2<< enemies[i].getHealth() << " "<< enemies[i].getPower()<<" "<<enemies[i].getSpeed()<<endl;
+        if(outFile2.fail()){
+            cerr << "ERROR IN WRITING TO TMP FILE STATISTICS!";
+        }
     }
     outFile2.close();
-    rename("statistics.tmp", "statistics.txt");
+    if(rename("statistics.tmp", "statistics.txt") != 0) {
+        cerr << "ERROR RENAMING statistics.tmp TO statistics.txt\n";
+    }
+
 }
 
 void updatePickedCards(Player &hero){

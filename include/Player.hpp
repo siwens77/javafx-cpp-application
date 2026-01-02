@@ -1,9 +1,12 @@
-#pragma once
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
 #include <string>
 #include <vector>
-#include <type_traits>
+#include <memory>
 #include "Card.hpp"
 
+class Player;
 class Card;
 
 class Player {
@@ -16,34 +19,39 @@ private:
 
 public:
     Player(int h, int p, const std::string &n, int s);
-    ~Player();
+    virtual ~Player();
+    virtual void makeTurn(std::vector<Player*>& enemies, Player* hero) = 0;
 
     int getHealth() const;
     int getPower() const;
     int getSpeed() const;
     std::string getName() const;
     std::vector<Card>& getCards();
-    template <typename T>
-    void setHealth(T h);
-    template <typename T>
-    void setPower(T p);
-    template <typename T>
-    void setSpeed(T s);
+    void setHealth(int h){health=h;};
+    void setPower(int p){power=p;};
+    void setSpeed(int s){speed=s;};
     void setCards(const std::vector<Card> c);
 };
 
-template <typename T>
-void Player::setHealth(T h) {
-    static_assert(std::is_arithmetic_v<T>, "Health must be int or double or long");
-    health = static_cast<int>(h);
-}
-template <typename T>
-void Player::setPower(T p) {
-    static_assert(std::is_arithmetic_v<T>, "Power must be int or double or long");
-    power = static_cast<int>(p);
-}
-template <typename T>
-void Player::setSpeed(T s) {
-    static_assert(std::is_arithmetic_v<T>, "Speed must be int or double or long");
-    speed = static_cast<int>(s);
-}
+class Hero : public Player{
+    public:
+    using Player::Player;
+    void makeTurn(std::vector<Player*>&enemies, Player* hero)override;
+};
+class Healer : public Player{
+    public:
+    using Player::Player;
+    void makeTurn(std::vector<Player*>&enemies, Player* hero)override;
+};
+class Warrior : public Player{
+    public:
+    using Player::Player;
+    void makeTurn(std::vector<Player*>&enemies, Player* hero)override;
+};
+class Wizard : public Player{
+    public:
+    using Player::Player;
+    void makeTurn(std::vector<Player*>&enemies, Player* hero)override;
+};
+
+#endif

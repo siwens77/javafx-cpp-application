@@ -8,15 +8,15 @@
 #include <chrono>
 using namespace std;
 
-void updatePlayersInfo(std::vector<Player> &enemies,Player &hero){
+void updatePlayersInfo(std::vector<Player*> &enemies,Player *hero){
     ofstream outFile2("statistics.tmp");
     if(!outFile2.is_open()){
         cerr << "ERROR IN OPENING TMP FILE STATISTICS!";
         return;
     }
-    outFile2<< hero.getHealth()<< " "<<hero.getPower()<< " "<<hero.getSpeed()<<endl;
+    outFile2<< hero->getHealth()<< " "<<hero->getPower()<< " "<<hero->getSpeed()<<endl;
     for(int i = 0;i<3; i++){
-        outFile2<< enemies[i].getHealth() << " "<< enemies[i].getPower()<<" "<<enemies[i].getSpeed()<<endl;
+        outFile2<< enemies[i]->getHealth() << " "<< enemies[i]->getPower()<<" "<<enemies[i]->getSpeed()<<endl;
         if(outFile2.fail()){
             cerr << "ERROR IN WRITING TO TMP FILE STATISTICS!";
         }
@@ -28,8 +28,8 @@ void updatePlayersInfo(std::vector<Player> &enemies,Player &hero){
 
 }
 
-void updatePickedCards(Player &hero){
-    vector<Card>cards = hero.getCards();
+void updatePickedCards(Player *hero){
+    vector<Card>cards = hero->getCards();
     ofstream outFile("cards.tmp");
     if(!outFile.is_open()){
         cerr << "ERROR IN OPENING TMP FILE CARDS!";
@@ -89,104 +89,55 @@ vector<Card> initializeCards() {
     return cards;
 }
 
-vector<Player> initializeEnemies(){//Player(health, power, name, speed) 
-    return {{10, 10 , "healer",20}, {10,10, "warrior",30}, {10,10, "magician",10}};
+vector<Player*> initializeEnemies(){//Player(health, power, name, speed) 
+    return {new Healer{10, 10 , "healer",20}, new Warrior{10,10, "warrior",30}, new Wizard{10,10, "magician",10}};
 }
 
-int pickPlayer(vector<Player>&enemies, Player &hero){
-    double total = hero.getSpeed();
+int pickPlayer(vector<Player*>&enemies, Player *hero){
+    double total = hero->getSpeed();
     for (auto& e : enemies)
-        total += e.getSpeed();
+        total += e->getSpeed();
 
     static std::mt19937 rng(std::random_device{}());
     std::uniform_real_distribution<double> dist(0.0, total);
     double r = dist(rng);
 
-    if (r < hero.getSpeed())
+    if (r < hero->getSpeed())
         return -1;
 
-    r -= hero.getSpeed();
-    int picked = enemies.size();
-    for (auto& e : enemies) {
-        if (r < e.getSpeed())
-            return picked;
-        r -= e.getSpeed();
-        picked--;
+    r -= hero->getSpeed();
+    for (size_t i = 0; i < enemies.size(); ++i) {
+        if (r < enemies[i]->getSpeed())
+            return i;
+        r -= enemies[i]->getSpeed();
     }
-    return 100000;
+    return -1;
 }
 
-bool checkIfEnemiesDead(vector<Player>&enemies){
+bool checkIfEnemiesDead(vector<Player* >&enemies){
     bool allDead = true;
-    for(Player& p: enemies){
-        if(p.getHealth()<=0){
-            p.setPower(0);
-            p.setSpeed(0);
+    for(Player* p: enemies){
+        if(p->getHealth()<=0){
+            p->setPower(0);
+            p->setSpeed(0);
         }else{
             allDead = false;
         }
     }return allDead;
 }
 
-bool checkIfHeroDead(Player &hero){
-    if(hero.getHealth()<=0){
-        hero.setHealth(0);
-        hero.setPower(0);
-        hero.setSpeed(0);
+bool checkIfHeroDead(Player *hero){
+    if(hero->getHealth()<=0){
+        hero->setHealth(0);
+        hero->setPower(0);
+        hero->setSpeed(0);
         return true;
     }else{
         return false;
     }
 }
 
-void heroMakeTurn(Player *hero, vector<Player>&enemies){
-    
-    string idPickedCard;
-    string idPickedCat;
-    while(true){
-        ifstream MyFile("clickedCard.txt");
-        ifstream MyFile2("clickedCat.txt");
-        getline(MyFile, idPickedCard); 
-        getline(MyFile2, idPickedCat); 
-        if ((idPickedCard == "0" ||idPickedCard == "1" ||idPickedCard == "2") 
-        && (idPickedCat == "0" ||idPickedCat == "1" ||idPickedCat == "2" || idPickedCat=="-1")){
-            MyFile.close();
-            MyFile2.close();
-            break;
-    }MyFile.close();
-    MyFile2.close();
-    this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-
-    Card &pickedCard = hero->getCards()[stoi(idPickedCard)];
-    int idPickedEnemy = stoi(idPickedCat);
-    Player& pickedEnemy = (idPickedEnemy == -1) ? *hero : enemies[idPickedEnemy];
-
-    pickedCard(*hero,pickedEnemy);
-
-}
-
-void healerMakeTurn(std::vector<Player>& enemies){
-    auto healerPower = enemies[0].getPower() * 0.01 * 30;
-
-    std::for_each(enemies.begin(), enemies.end(), [&](Player& p){
-        if(p.getHealth() > 0){
-            p.setHealth(std::min(healerPower + p.getHealth(), 100.0));
-        }
-    });
-}
-
-void warriorMakeTurn(vector<Player>&enemies, Player &hero){
-    hero.setHealth(max(hero.getHealth()-enemies[1].getPower()*0.01*50, 0.0));
-}
-
-void wizardMakeTurn(vector<Player>&enemies){
-    for(Player& p :enemies){
-        p.setPower(enemies[2].getPower()*0.01*30+p.getPower());
-    }
-}
-
-void initializePlayerCards(vector<Card> &cards, Player &hero) {
+void initializePlayerCards(vector<Card> &cards, Player *hero) {
     vector<Card> picked;
     static std::mt19937 rng(std::random_device{}());
 
@@ -208,7 +159,7 @@ void initializePlayerCards(vector<Card> &cards, Player &hero) {
             r -= it->getProbability();
         }
     }
-    hero.setCards(picked);
+    hero->setCards(picked);
     updatePickedCards(hero);
 }
 
@@ -239,13 +190,10 @@ void writeWhoseTurn(int picked) {
         return;
     }
 
-    switch (picked) {
-        case static_cast<int>(Picked::hero): file<<"hero"; break;
-        case static_cast<int>(Picked::wizard): file<<"wizard"; break;
-        case static_cast<int>(Picked::warrior): file<<"warrior"; break;
-        case static_cast<int>(Picked::healer): file<<"healer"; break;
-        default: file<<"unknown"; break;
-    }
+        if(picked==-1)file<<"hero"; 
+        else if(picked==0)file<<"healer"; 
+        else if(picked==1)file<<"warrior"; 
+        if(picked==2)file<<"wizard"; 
 }
 
 void writeGameOver(string heroWon){
@@ -253,7 +201,7 @@ void writeGameOver(string heroWon){
     file<< heroWon;
 }
 
-void playTurn(vector<Player>&enemies, Player &hero, vector<Card> cards){
+void playTurn(vector<Player*>&enemies, Player *hero, vector<Card> cards){
     updatePlayersInfo(enemies,hero);
     initializePlayerCards(cards,hero);
     waitUntilNextTurn();
@@ -261,26 +209,11 @@ void playTurn(vector<Player>&enemies, Player &hero, vector<Card> cards){
 
     int picked = pickPlayer(enemies, hero);
     writeWhoseTurn(picked);
-    switch(picked){
-
-        case -1:
+    if(picked==-1){
         waitUntilNextTurn2();
-        heroMakeTurn(&hero, enemies);
-        break;
-
-        case 3:
-        healerMakeTurn(enemies);
-        break;
-
-        case 2:
-        warriorMakeTurn(enemies, hero);
-        break;
-
-        case 1:
-        wizardMakeTurn(enemies);
-        break;
-
-        default:
-        return;
+        hero->makeTurn(enemies,hero);
+    }
+    else{
+        enemies[picked]->makeTurn(enemies,hero);
     }
 }

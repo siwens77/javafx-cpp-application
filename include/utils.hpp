@@ -12,17 +12,17 @@ enum class Picked{
     wizard = 1
 };
 
-std::vector<Card> initializeCards();
-std::vector<Player> initializeEnemies();
+vector<Card> initializeCards();
+vector<Player> initializeEnemies();
 
 void initializePlayerCards(vector<Card> &cards, Player &hero);
 
-void updatePlayersInfo( std::vector<Player> &enemies,  Player &hero);
+void updatePlayersInfo(vector<Player> &enemies,  Player &hero);
 
-void playTurn(std::vector<Player> &enemies, Player &hero, std::vector<Card> cards);
+void playTurn(std::vector<Player> &enemies, Player &hero, vector<Card> cards);
 
 bool checkIfEnemiesDead( std::vector<Player> &enemies);
 bool checkIfHeroDead(Player &hero);
 
 void clearFiles();
-void writeGameOver(std::string result);
+void writeGameOver(string result);

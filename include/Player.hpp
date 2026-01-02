@@ -22,9 +22,15 @@ public:
     int getSpeed() const;
     std::string getName() const;
     std::vector<Card>& getCards();
-
-    void setHealth(int h);
+    template <typename T>
+    void setHealth(T h);
     void setPower(int p);
     void setSpeed(int s);
     void setCards(const std::vector<Card> c);
 };
+
+template <typename T>
+void Player::setHealth(T h) {
+    static_assert(std::is_arithmetic_v<T>, "Health must be int or double or long");
+    health = static_cast<int>(h);
+}

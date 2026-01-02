@@ -139,10 +139,7 @@ void heroMakeTurn(Player *hero, vector<Player>&enemies){
     int idPickedEnemy = stoi(idPickedCat);
     Player& pickedEnemy = (idPickedEnemy == -1) ? *hero : enemies[idPickedEnemy];
 
-    pickedCard.hit(*hero, pickedEnemy);
-    pickedCard.heal(*hero, pickedEnemy);
-    pickedCard.increasePower(*hero, pickedEnemy);
-    pickedCard.increaseSpeed(*hero, pickedEnemy);
+    pickedCard(*hero,pickedEnemy);
 
 }
 

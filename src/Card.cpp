@@ -1,5 +1,6 @@
 #include "Card.hpp"
 #include "Player.hpp"
+using namespace std;
 
 Card::Card(std::string n, std::string desc, double prob, int powHit, int powHeal, int powPow, int powSpeed)
     : name(n), description(desc), probability(prob), powerHit(powHit), powerHeal(powHeal),
@@ -28,3 +29,10 @@ void Card::increaseSpeed(const Player &increaser, Player &target) {
 double Card::getProbability() const { return probability; }
 std::string Card::getDescription() const { return description; }
 std::string Card::getName() const { return name; }
+
+void Card::operator()(Player& hero, Player& target) {
+    hit(hero, target);
+    heal(hero, target);
+    increasePower(hero, target);
+    increaseSpeed(hero, target);
+}

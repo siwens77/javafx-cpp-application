@@ -21,6 +21,8 @@ public:
     void increasePower(const Player &increaser, Player &target);
     void increaseSpeed(const Player &increaser, Player &target);
 
+    void operator()(Player& hero, Player& target);
+
     double getProbability() const;
     std::string getDescription() const;
     std::string getName() const;

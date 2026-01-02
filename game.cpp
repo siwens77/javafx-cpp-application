@@ -11,7 +11,7 @@ class Player;
 class Card;
 
 class Card{
-    public:
+private:
     string name;
     string description;
     double probability;
@@ -20,12 +20,16 @@ class Card{
     int powerPower;
     int PowerSpeed;
     
+public:
     Card(string n, string desc, double prob, int powHit, int powHeal, int powPow, int powSpeed) 
     : name(n), description(desc), probability(prob), powerHit(powHit) , powerHeal(powHeal) , powerPower(powPow), PowerSpeed(powSpeed){} 
     void hit(Player& abuser, Player& victim);
     void heal(Player& abuser, Player& victim);
     void increasePower(Player& increaser, Player& target);
     void increaseSpeed(Player& increaser, Player& target);
+    double getProbability(){return this->probability;}
+    string getDescription(){return this-> description;}
+    string getName(){return this-> name;}
 };
 
 class Player{
@@ -80,8 +84,8 @@ void updatePickedCards(Player hero){
     vector<Card>cards = hero.getCards();
     ofstream outFile("cards.tmp");
     for(int i = 0 ; i<cards.size(); i++){
-        outFile<< "resources/images/"<<cards[i].name<< ".png"<<endl;
-        outFile<< cards[i].description<<endl;
+        outFile<< "resources/images/"<<cards[i].getName()<< ".png"<<endl;
+        outFile<< cards[i].getDescription()<<endl;
     }
     rename("cards.tmp",  "cards.txt");
 }
@@ -230,18 +234,18 @@ void initializePlayerCards(vector<Card> cards, Player &hero) {
     while (picked.size() < numToPick && !cards.empty()) {
         double total = 0;
         for (auto& c : cards)
-            total += c.probability;
+            total += c.getProbability();
 
         std::uniform_real_distribution<double> dist(0.0, total);
         double r = dist(rng);
 
         for (auto it = cards.begin(); it != cards.end(); ++it) {
-            if (r < it->probability) {
+            if (r < it->getProbability()) {
                 picked.push_back(*it);   
                 cards.erase(it);      
                 break;
             }
-            r -= it->probability;
+            r -= it->getProbability();
         }
     }
     hero.setCards(picked);

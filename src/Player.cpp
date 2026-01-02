@@ -1,4 +1,5 @@
 #include "Player.hpp"
+#include "utils.hpp"
 #include <fstream>
 #include <thread>
 using namespace std;
@@ -44,13 +45,13 @@ void Healer::makeTurn(std::vector<Player*>& enemies, Player *hero){
 
     for(Player* p :enemies){
         if(p->getHealth() > 0){
-            p->setHealth(min(healerPower + p->getHealth(), 100.0));
+            p->setHealth(clampValue(healerPower + p->getHealth(), 0.0,100.0));
         }
     }
 }
 
 void Warrior::makeTurn(vector<Player*>&enemies, Player *hero){
-    hero->setHealth(max(hero->getHealth()-this->getPower()*0.01*50, 0.0));
+    hero->setHealth(clampValue(hero->getHealth()-this->getPower()*0.01*50, 0.0,100.0));
 }
 
 void Wizard::makeTurn(vector<Player*>&enemies, Player *hero){

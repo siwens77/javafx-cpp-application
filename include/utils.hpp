@@ -11,6 +11,12 @@ enum class Picked{
     wizard = 2
 };
 
+template <typename T>
+T clampValue(T value, T minVal, T maxVal) {
+    if (value < minVal) return minVal;
+    if (value > maxVal) return maxVal;
+    return value;
+}
 vector<Card> initializeCards();
 vector<Player*> initializeEnemies();
 void initializePlayerCards(vector<Card> &cards, Player *hero);

@@ -1,5 +1,6 @@
 #my run script
 run.sh
+test.sh
 #my vscode setup
 .vscode/
 #all jar files

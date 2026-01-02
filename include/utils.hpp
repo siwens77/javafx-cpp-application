@@ -6,9 +6,9 @@ using namespace std;
 
 enum class Picked{
     hero = -1,
-    healer = 3,
-    warrior = 2,
-    wizard = 1
+    healer = 0,
+    warrior = 1,
+    wizard = 2
 };
 
 vector<Card> initializeCards();

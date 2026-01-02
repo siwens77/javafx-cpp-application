@@ -189,11 +189,22 @@ void writeWhoseTurn(int picked) {
         cerr << "ERROR IN OPENING WHOSTURN FILE FOR CLEARING!";
         return;
     }
-
-        if(picked==-1)file<<"hero"; 
-        else if(picked==0)file<<"healer"; 
-        else if(picked==1)file<<"warrior"; 
-        if(picked==2)file<<"wizard"; 
+        Picked p = static_cast<Picked>(picked);
+        switch(p){
+        case Picked::hero:
+            file<<"hero";
+            break;
+        case Picked::warrior:
+            file<<"warrior";
+            break;
+        case Picked::wizard:
+            file<<"wizard";
+            break;
+        case Picked::healer:
+            file<<"healer";
+            break;
+        }
+        
 }
 
 void writeGameOver(string heroWon){
@@ -202,7 +213,8 @@ void writeGameOver(string heroWon){
 }
 
 void playTurn(vector<Player*>&enemies, Player *hero, vector<Card> cards){
-    updatePlayersInfo(enemies,hero);
+    std::thread writerThread(updatePlayersInfo, std::ref(enemies), hero);
+    writerThread.join();
     initializePlayerCards(cards,hero);
     waitUntilNextTurn();
     clearFiles();

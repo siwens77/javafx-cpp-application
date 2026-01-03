@@ -389,30 +389,23 @@ public class Controller {
                 Platform.runLater(() -> {
                     try{
                         CatType turn = CatType.valueOf(line0.toUpperCase());
+                        controller.removeStyleFromAll("card-frame", 
+                        controller.catHeroView, 
+                        controller.cat1View, 
+                        controller.cat2View, 
+                        controller.cat3View);
                         switch(turn){
                             case HERO:
                                 controller.catHeroView.getStyleClass().add("card-frame");
-                                controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                                controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                                controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                                if(!first){updateCards(this);}
+                                if(!first){updateCards(controller);}
                                 break;
                             case HEALER:
-                                controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                                controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                                controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                                 controller.cat1View.getStyleClass().add("card-frame");
                                 break;
                             case WARRIOR:
-                                controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                                controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                                controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                                 controller.cat2View.getStyleClass().add("card-frame");
                                 break;
                             case WIZARD:
-                                controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                                controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                                controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
                                 controller.cat3View.getStyleClass().add("card-frame");
                                 break;
                             }
@@ -487,6 +480,15 @@ public class Controller {
                 return;
             }
         }).start();
+    }
+
+    @SafeVarargs
+    private final <T extends Node> void removeStyleFromAll(String styleName, T... nodes) {
+        for (T node : nodes) {
+            if (node != null) {
+                node.getStyleClass().remove(styleName);
+            }
+        }
     }
 
     @FXML

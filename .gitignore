@@ -1,9 +1,6 @@
 #my run script
-run.sh
 test.sh
 test2.sh
-#my vscode setup
-.vscode/
 #all jar files
 lib/
 #all binaries from java compiled files

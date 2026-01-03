@@ -17,7 +17,6 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Collections;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
@@ -305,12 +304,7 @@ public class Controller {
             stage.show();
         
 
-            String os = System.getProperty("os.name").toLowerCase();
-            String binaryName = "CatsBattle";
-            if (os.contains("win")) {
-                binaryName += ".exe";
-            }
-            File exePath = new File("bin/" + binaryName);
+            File exePath = new File("bin/CatsBattle");
             if (!exePath.exists()) {
                 throw new IOException("C++ COMPILED FILE NOT FOUND: " + exePath.getAbsolutePath());
             }

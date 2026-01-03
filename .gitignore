@@ -1,6 +1,3 @@
-#my run script
-test.sh
-test2.sh
 #all binaries from java compiled files
 bin/
 #some mac shi

@@ -90,7 +90,7 @@ vector<Card> initializeCards() {
 }
 
 vector<Player*> initializeEnemies(){//Player(health, power, name, speed) 
-    return {new Healer{10, 10 , "healer",20}, new Warrior{10,10, "warrior",30}, new Wizard{10,10, "magician",10}};
+    return {new Healer{100, 10 , "healer",20}, new Warrior{100,10, "warrior",30}, new Wizard{100,10, "magician",10}};
 }
 
 int pickPlayer(vector<Player*>&enemies, Player *hero){

@@ -1,8 +1,6 @@
 #my run script
 test.sh
 test2.sh
-#all jar files
-lib/
 #all binaries from java compiled files
 bin/
 #some mac shi

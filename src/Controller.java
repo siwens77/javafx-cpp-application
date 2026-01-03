@@ -305,7 +305,12 @@ public class Controller {
             stage.show();
         
 
-            File exePath = new File("bin/CatsBattle");
+            String os = System.getProperty("os.name").toLowerCase();
+            String binaryName = "CatsBattle";
+            if (os.contains("win")) {
+                binaryName += ".exe";
+            }
+            File exePath = new File("bin/" + binaryName);
             if (!exePath.exists()) {
                 throw new IOException("C++ COMPILED FILE NOT FOUND: " + exePath.getAbsolutePath());
             }

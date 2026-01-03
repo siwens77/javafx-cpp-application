@@ -62,18 +62,18 @@ void clearFiles() {
 vector<Card> initializeCards() {
     vector<Card> cards;
     //Card(name, description, probability, hit, heal, power, speed)
-    Card hitCard("hit", "common card hitting for 5p", 1, 5, 0, 0,0);
-    Card goldHitCard("goldHit", "rare card hitting for 20p", 1, 20, 0, 0,0);
-    Card healCard("heal" ,"common card healing 10p", 1,0,20,0,0);
-    Card goldHealCard("goldHeal", "rare card healing 50p", 1,0,50,0,0); 
-    Card powerCard("power", "common card increasing power by 25p", 1,0,0,25,0);
-    Card goldPowerCard("goldPower", "rare card increasing power by 50p", 1,0,0,50,0);
-    Card speedCard("speed", "common card increasing speed by 20p", 1,0,0,0,20);
-    Card goldSpeedCard("goldSpeed", "common card increasing speed by 400p", 1,0,0,0,40);
-    Card jokerCard("joker", "rare card increasing everything by 30",1,0,30,30,30);
-    Card goldJokerCard("goldJoker", "very rare card increasing everything by 50",1,0,50,50,50);
-    Card gamblerCard("gambler", "rare card power +20 and speed +20 but health to -40",1,40,0,20,20);
-    Card mysteryCard("mystery", "card with hidden meaning",0,30,0,30,30);
+    Card hitCard("hit", "common card hitting low", 1, 5, 0, 0,0);
+    Card goldHitCard("goldHit", "rare card hitting more", 0.2, 12, 0, 0,0);
+    Card healCard("heal" ,"common card healing low", 1,0,10,0,0);
+    Card goldHealCard("goldHeal", "rare card healing more", 0.2,0,20,0,0); 
+    Card powerCard("power", "common card increasing power a little", 1,0,0,15,0);
+    Card goldPowerCard("goldPower", "rare card increasing power more", 0.2,0,0,20,0);
+    Card speedCard("speed", "common card increasing speed a little", 1,0,0,0,10);
+    Card goldSpeedCard("goldSpeed", "rare card increasing speed by more", 0.2,0,0,0,20);
+    Card jokerCard("joker", "rare card increasing everything by a little",0.2,0,10,10,10);
+    Card goldJokerCard("goldJoker", "very rare card increasing everything by a lot",0.05,0,20,20,20);
+    Card gamblerCard("gambler", "rare card power increasing power and speed but hitting a little",0.3,10,0,10,5);
+    Card mysteryCard("mystery", "card with hidden meaning",0,5,0,12,5);
     cards.push_back(mysteryCard);
     cards.push_back(gamblerCard);
     cards.push_back(goldJokerCard);
@@ -90,7 +90,7 @@ vector<Card> initializeCards() {
 }
 
 vector<Player*> initializeEnemies(){//Player(health, power, name, speed) 
-    return {new Healer{100, 10 , "healer",20}, new Warrior{100,10, "warrior",30}, new Wizard{100,10, "magician",10}};
+    return {new Healer{100, 10 , "healer",20}, new Warrior{100,10, "warrior",25}, new Wizard{100,10, "magician",12}};
 }
 
 int pickPlayer(vector<Player*>&enemies, Player *hero){

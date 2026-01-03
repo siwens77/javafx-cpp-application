@@ -6,7 +6,7 @@ Game::Game() {
     clearFiles();
     cards = initializeCards();
     enemies = initializeEnemies();
-    hero = new Hero(100, 100, "hero", 30);
+    hero = new Hero(100, 100, "hero", 20);
     updatePlayersInfo(enemies, hero);
     initializePlayerCards(cards, hero);
 }

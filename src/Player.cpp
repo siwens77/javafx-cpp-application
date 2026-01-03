@@ -57,5 +57,6 @@ void Warrior::makeTurn(vector<Player*>&enemies, Player *hero){
 void Wizard::makeTurn(vector<Player*>&enemies, Player *hero){
     for(Player* p :enemies){
         p->setPower(this->getPower()*0.01*30+p->getPower());
+        p->setSpeed(this->getPower()*0.1+p->getSpeed());
     }
 }

@@ -105,14 +105,14 @@ public class Controller {
             "whosturn.txt",
             "gameover.txt",
             "cards.txt",
-            "clickedCard.tmp",
-            "clickedCat.tmp"
+            //"clickedCard.tmp",
+            //"clickedCat.tmp"
         };
 
         for (String filePath : files) {
             File file = new File(filePath);
-            if (file.exists()) {
-                boolean deleted = file.delete();
+            if(!file.delete()){
+                System.err.println("FILE FAILED TO BE DELETED: "+ filePath);
             }
         }
     }
@@ -144,7 +144,8 @@ public class Controller {
                 try {
                     Thread.sleep(100); 
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                    System.err.println("ERROR IN PUTTING THREAD TO SLEEP!(STATISTICS.TXT)");
                     return;
                 }
             }
@@ -154,7 +155,16 @@ public class Controller {
                 String line1 = br.readLine();
                 String line2 = br.readLine();
                 String line3 = br.readLine();
-                new PrintWriter(filePath).close();
+                if (line0 == null || line1 == null || line2 == null || line3 == null) {
+                    System.err.println("STATISTICS.TXT IS NOT LONG ENOUGH");
+                    return;
+                }
+                try (FileWriter fw = new FileWriter(file, false)) {
+                } catch (IOException e) {
+                    System.err.println("FAILED TO CLEAR STATISTICS.TXT");
+                    e.printStackTrace();
+                    return;
+                }
 
                 String[] words0 = line0.split(" ");
                 String[] words1 = line1.split(" ");
@@ -165,30 +175,31 @@ public class Controller {
                 String power0 = words0.length > 0 ? words0[1] : "";
                 String speed0 = words0.length > 0 ? words0[2] : "";
                 Platform.runLater(() -> {
+                    
                     controller.heroHealthText.setText("health: "+health0);
                     controller.heroSpeedText.setText("speed: "+speed0);
                     controller.heroPowerText.setText("power: "+power0);
-                });
-                String health1 = words1.length > 0 ? words1[0] : "";
-                String power1 = words1.length > 0 ? words1[1] : "";
-                String speed1 = words1.length > 0 ? words1[2] : "";
-                Platform.runLater(() -> {
+
+                    String health1 = words1.length > 0 ? words1[0] : "";
+                    String power1 = words1.length > 0 ? words1[1] : "";
+                    String speed1 = words1.length > 0 ? words1[2] : "";
+
                     controller.healerHealthText.setText("health: "+health1);
                     controller.healerSpeedText.setText("speed: "+speed1);
                     controller.healerPowerText.setText("power: "+power1);
-                });
-                String health2 = words2.length > 0 ? words2[0] : "";
-                String power2 = words2.length > 0 ? words2[1] : "";
-                String speed2 = words2.length > 0 ? words2[2] : "";
-                Platform.runLater(() -> {
+
+                    String health2 = words2.length > 0 ? words2[0] : "";
+                    String power2 = words2.length > 0 ? words2[1] : "";
+                    String speed2 = words2.length > 0 ? words2[2] : "";
+
                     controller.warriorHealthText.setText("health: "+health2);
                     controller.warriorSpeedText.setText("speed: "+speed2);
                     controller.warriorPowerText.setText("power: "+power2);
-                });
-                String health3 = words3.length > 0 ? words3[0] : "";
-                String power3 = words3.length > 0 ? words3[1] : "";
-                String speed3 = words3.length > 0 ? words3[2] : "";
-                Platform.runLater(() -> {
+
+                    String health3 = words3.length > 0 ? words3[0] : "";
+                    String power3 = words3.length > 0 ? words3[1] : "";
+                    String speed3 = words3.length > 0 ? words3[2] : "";
+
                     controller.wizardHealthText.setText("health: "+health3);
                     controller.wizardSpeedText.setText("speed: "+speed3);
                     controller.wizardPowerText.setText("power: "+power3);
@@ -196,7 +207,9 @@ public class Controller {
 
 
             } catch (IOException e) {
+                System.err.println("ERROR IN READING STATISTICS.TXT");
                 e.printStackTrace();
+                return;
             }
         }).start();
     }
@@ -209,7 +222,8 @@ public class Controller {
                 try {
                     Thread.sleep(100); 
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                    System.err.println("ERROR IN PUTTING THREAD TO SLEEP! (CARDS.TXT)");
                     return;
                 }
             }
@@ -221,7 +235,12 @@ public class Controller {
                 String line2_2 = br.readLine();
                 String line3 = br.readLine();
                 String line3_3 = br.readLine();
-                new PrintWriter(filePath).close();
+                try (FileWriter fw = new FileWriter(file, false)) {
+                } catch (IOException e) {
+                    System.err.println("FAILED TO CLEAR CARDS.TXT");
+                    e.printStackTrace();
+                    return;
+                }
                 Platform.runLater(() -> {
                     controller.card1.setImage(new Image(getClass().getResource(line1).toExternalForm()));
                     controller.card1Tooltip.setText(line1_1);
@@ -233,55 +252,69 @@ public class Controller {
 
 
             } catch (IOException e) {
+                System.err.println("ERROR IN READING CARDS.TXT");
                 e.printStackTrace();
+                return;
             }
         }).start();
     }
 
     @FXML
-    void PlayB(ActionEvent event)throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("rules.fxml"));
-        Parent root = loader.load();
-        Controller controller = loader.getController();
+    void PlayB(ActionEvent event) {
+        try{
+            click1.play();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("rules.fxml"));
+            Parent root = loader.load();
+            Controller controller = loader.getController();
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 800, 578);
-        stage.setScene(scene);
-        stage.show();
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root, 800, 578);
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException e){
+            System.err.println("FAILED TO LOAD RULES SCENE");
+            e.printStackTrace();
+        }
 
     }
 
     @FXML
-    void PlayB2(ActionEvent event) throws IOException {
-        click1.play();
+    void PlayB2(ActionEvent event){
+        try{
+            click1.play();
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("racescene.fxml"));
+            Parent root = loader.load();
+            Controller controller = loader.getController();
+
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root, 800, 578);
+            stage.setScene(scene);
+            stage.show();
         
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("racescene.fxml"));
-        Parent root = loader.load();
-        Controller controller = loader.getController();
 
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 800, 578);
-        stage.setScene(scene);
-        stage.show();
-    
-
-        String exePath = new File("bin/CatsBattle").getAbsolutePath();
-        ProcessBuilder pb = new ProcessBuilder(exePath);
-        gameProcess = pb.start();
-        markPlayer(controller,true);
-        updateStatistic(controller);
-        updateCards(controller);
+            File exePath = new File("bin/CatsBattle");
+            if (!exePath.exists()) {
+                throw new IOException("C++ COMPILED FILE NOT FOUND: " + exePath.getAbsolutePath());
+            }
+            ProcessBuilder pb = new ProcessBuilder(exePath.getAbsolutePath());
+            gameProcess = pb.start();
+            markPlayer(controller,true);
+            updateStatistic(controller);
+            updateCards(controller);
+        }catch(IOException e){
+            System.err.println("FAILED TO LOAD FIGHTING SCENE");
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void closeB(ActionEvent e) {
         clearFiles();
         click1.play();
-    
         if (gameProcess != null && gameProcess.isAlive()) {
             gameProcess.destroyForcibly();
         }
-    
         Platform.exit();
         System.exit(0);
     }
@@ -306,6 +339,7 @@ public class Controller {
         try (FileWriter writer = new FileWriter("clickedCard.tmp")) {
             writer.write(cardId);
         } catch (IOException ex) {
+            System.err.println("FAILED TO WRITE WHICH CARD WAS CLICKED");
             ex.printStackTrace();
         }
     }
@@ -314,6 +348,7 @@ public class Controller {
         try (FileWriter writer = new FileWriter("clickedCat.tmp")) {
             writer.write(catID);
         } catch (IOException ex) {
+            System.err.println("FAILED TO WRITE WHICH CAT WAS CLICKED");
             ex.printStackTrace();
         }
     }
@@ -326,50 +361,59 @@ public class Controller {
                 try {
                     Thread.sleep(100); 
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                    System.err.println("ERROR IN PUTTING THREAD TO SLEEP!(WHOSTURN.TXT)");
                     return;
                 }
             }
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String line0 = br.readLine();
-                new PrintWriter(filePath).close();
+                try (FileWriter fw = new FileWriter(file, false)) {
+                } catch (IOException e) {
+                    System.err.println("FAILED TO CLEAR WHOSETURN.TXT");
+                    e.printStackTrace();
+                    return;
+                }
                 Platform.runLater(() -> {
-                    switch(line0){
-                        case "hero":
-                            controller.catHeroView.getStyleClass().add("card-frame");
-                            controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            if(!first){updateCards(this);}
-                            break;
-                        case "healer":
-                            controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat1View.getStyleClass().add("card-frame");
-                            break;
-                        case "warrior":
-                            controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat2View.getStyleClass().add("card-frame");
-                            break;
-                        case "wizard":
-                            controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
-                            controller.cat3View.getStyleClass().add("card-frame");
-                            break;
-                        default:
-                            break;
-                    }
-                });
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
+                    try{
+                        CatType turn = CatType.valueOf(line0.toUpperCase());
+                        switch(turn){
+                            case HERO:
+                                controller.catHeroView.getStyleClass().add("card-frame");
+                                controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                if(!first){updateCards(this);}
+                                break;
+                            case HEALER:
+                                controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat1View.getStyleClass().add("card-frame");
+                                break;
+                            case WARRIOR:
+                                controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat3View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat2View.getStyleClass().add("card-frame");
+                                break;
+                            case WIZARD:
+                                controller.catHeroView.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat2View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat1View.getStyleClass().removeAll(Collections.singleton("card-frame"));
+                                controller.cat3View.getStyleClass().add("card-frame");
+                                break;
+                            }
+                        } catch (IllegalArgumentException e) {
+                            System.err.println("INVALID TYPE OF CAT IN WHOSETURN.TXT: " + line0);
+                        }
+                    });
+                } catch (IOException e) {
+                    System.err.println("ERROR IN READING WHOSETURN.TXT");
+                    e.printStackTrace();
+                }
+            }).start();
+        }
 
     @FXML
     void cat1click(ActionEvent e){
@@ -406,13 +450,19 @@ public class Controller {
                 try {
                     Thread.sleep(100); 
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                    System.err.println("ERROR IN PUTTING THREAD TO SLEEP!(GAMEOVER.TXT)");
                     return;
                 }
             }
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String line0 = br.readLine();
-                new PrintWriter(filePath).close();
+                try (FileWriter fw = new FileWriter(file, false)) {
+                } catch (IOException e) {
+                    System.err.println("FAILED TO CLEAR GAMEOVER.TXT");
+                    e.printStackTrace();
+                    return;
+                }
                 Platform.runLater(() -> {
                     if ("W".equals(line0) || "L".equals(line0)){
                         endGame(line0);
@@ -420,7 +470,9 @@ public class Controller {
                 });
 
             } catch (IOException e) {
+                System.err.println("ERROR IN READING WHOSETURN.TXT");
                 e.printStackTrace();
+                return;
             }
         }).start();
     }

@@ -12,11 +12,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collections;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +25,10 @@ import javafx.scene.control.Button;
 
 public class Controller {
 
+    private Cat heroCat;
+    private Cat healerCat;
+    private Cat warriorCat;
+    private Cat wizardCat;
     private Stage stage; 
     private Scene scene; 
     private static Process gameProcess;
@@ -171,38 +175,42 @@ public class Controller {
                 String[] words2 = line2.split(" ");
                 String[] words3 = line3.split(" ");
 
-                String health0 = words0.length > 0 ? words0[0] : "";
-                String power0 = words0.length > 0 ? words0[1] : "";
-                String speed0 = words0.length > 0 ? words0[2] : "";
                 Platform.runLater(() -> {
+                    controller.heroCat.setStatistics(Integer.parseInt(words0[0]), Integer.parseInt(words0[2]), Integer.parseInt(words0[1]));
                     
-                    controller.heroHealthText.setText("health: "+health0);
-                    controller.heroSpeedText.setText("speed: "+speed0);
-                    controller.heroPowerText.setText("power: "+power0);
+                    controller.heroHealthText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.heroCat.getHealthStatus().split(" "), 1, 3)));
+                    controller.heroSpeedText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.heroCat.getSpeedStatus().split(" "), 1, 3)));
+                    controller.heroPowerText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.heroCat.getPowerStatus().split(" "), 1, 3)));
 
-                    String health1 = words1.length > 0 ? words1[0] : "";
-                    String power1 = words1.length > 0 ? words1[1] : "";
-                    String speed1 = words1.length > 0 ? words1[2] : "";
+                    controller.healerCat.setStatistics(Integer.parseInt(words1[0]), Integer.parseInt(words1[2]), Integer.parseInt(words1[1]));
+                    
+                    controller.healerHealthText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.healerCat.getHealthStatus().split(" "), 1, 3)));
+                    controller.healerSpeedText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.healerCat.getSpeedStatus().split(" "), 1, 3)));
+                    controller.healerPowerText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.healerCat.getPowerStatus().split(" "), 1, 3)));
 
-                    controller.healerHealthText.setText("health: "+health1);
-                    controller.healerSpeedText.setText("speed: "+speed1);
-                    controller.healerPowerText.setText("power: "+power1);
+                    controller.warriorCat.setStatistics(Integer.parseInt(words2[0]), Integer.parseInt(words2[2]), Integer.parseInt(words2[1]));
+                    
+                    controller.warriorHealthText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.warriorCat.getHealthStatus().split(" "), 1, 3)));
+                    controller.warriorSpeedText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.warriorCat.getSpeedStatus().split(" "), 1, 3)));
+                    controller.warriorPowerText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.warriorCat.getPowerStatus().split(" "), 1, 3)));
 
-                    String health2 = words2.length > 0 ? words2[0] : "";
-                    String power2 = words2.length > 0 ? words2[1] : "";
-                    String speed2 = words2.length > 0 ? words2[2] : "";
-
-                    controller.warriorHealthText.setText("health: "+health2);
-                    controller.warriorSpeedText.setText("speed: "+speed2);
-                    controller.warriorPowerText.setText("power: "+power2);
-
-                    String health3 = words3.length > 0 ? words3[0] : "";
-                    String power3 = words3.length > 0 ? words3[1] : "";
-                    String speed3 = words3.length > 0 ? words3[2] : "";
-
-                    controller.wizardHealthText.setText("health: "+health3);
-                    controller.wizardSpeedText.setText("speed: "+speed3);
-                    controller.wizardPowerText.setText("power: "+power3);
+                    controller.wizardCat.setStatistics(Integer.parseInt(words3[0]), Integer.parseInt(words3[2]), Integer.parseInt(words3[1]));
+                    
+                    controller.wizardHealthText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.wizardCat.getHealthStatus().split(" "), 1, 3)));
+                    controller.wizardSpeedText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.wizardCat.getSpeedStatus().split(" "), 1, 3)));
+                    controller.wizardPowerText.setText(
+                        String.join(" ", Arrays.copyOfRange(controller.wizardCat.getPowerStatus().split(" "), 1, 3)));
                 });
 
 
@@ -286,6 +294,10 @@ public class Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("racescene.fxml"));
             Parent root = loader.load();
             Controller controller = loader.getController();
+            controller.heroCat = new Hero(0, 0, 0);       
+            controller.healerCat = new Healer(0, 0, 0);   
+            controller.warriorCat = new Warrior(0, 0, 0); 
+            controller.wizardCat = new Wizard(0, 0, 0);
 
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root, 800, 578);

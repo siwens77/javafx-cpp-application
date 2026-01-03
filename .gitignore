@@ -4,6 +4,3 @@ bin/
 .DS_Store
 #my input
 *txt
-#settings
-.vscode
-run.sh

@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# === CONFIGURATION ===
-# Path to your JavaFX SDK (From your previous working setup)
-JAVAFX_PATH="/Users/krzysztofnowak/javafx-sdk-25.0.1/lib"
-# JUnit Jars (Make sure these are actually in your project 'lib' folder)
+JAVAFX_PATH="/Users/krzysztofnowak/javafx-sdk-25.0.1"/lib
 JUNIT_PATH="lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar"
 
 mkdir -p bin

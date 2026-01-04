@@ -1,5 +1,7 @@
 #!/bin/bash
 
+JAVAFX_PATH="/Users/krzysztofnowak/javafx-sdk-25.0.1"/lib
+
 # === Create bin directory if it doesn't exist ===
 mkdir -p bin
 mkdir -p bin/resources
@@ -14,7 +16,7 @@ fi
 
 # === Compile Java files ===
 echo "Compiling Java files..."
-javac --module-path /Users/krzysztofnowak/javafx-sdk-25.0.1/lib --add-modules javafx.controls,javafx.fxml,javafx.media \
+javac --module-path "$JAVAFX_PATH" --add-modules javafx.controls,javafx.fxml,javafx.media \
     -d bin $(find src -name "*.java")
 if [ $? -ne 0 ]; then
     echo "Java compilation failed!"
@@ -32,7 +34,7 @@ cp src/*.fxml bin/
 # === Run JavaFX application ===
 echo "Running JavaFX application..."
 java \
---module-path /Users/krzysztofnowak/javafx-sdk-25.0.1/lib \
+--module-path "$JAVAFX_PATH" \
 --add-modules javafx.controls,javafx.fxml,javafx.media \
 --enable-native-access=javafx.graphics,javafx.media \
 -cp bin Main

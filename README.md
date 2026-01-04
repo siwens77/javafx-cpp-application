@@ -55,7 +55,7 @@ chmod +x run.sh unittests/test2.sh unittests/test.sh
 
 ## 🎮 3. Gameplay
 
-1. Start the game and click **Play**
+1. Start the game using **Play**
 
 ![Starting Menu](screenshots/starting_menu.png)
 
@@ -77,21 +77,21 @@ chmod +x run.sh unittests/test2.sh unittests/test.sh
 ### 🧠 C++ (Game Logic)
 
 * Generates **enemies**, **hero**, and **cards** with their statistics
-* Determines turn order based on **speed**
-* Executes a full turn cycle:
+* Determines whose turn based on players **speed** (probability)
+* Executes picked turn:
 
-  * **Hero** – initializes cards based on probability and waits for input via `.txt` files
+  * **Hero** – initializes cards based on their probability and waits for input via `.txt` files
   * **Healer** – heals enemies
   * **Warrior** – attacks the hero
   * **Wizard** – boosts enemy abilities
 * Checks if any character has died and whether the game is over
 * Writes statistics to `.txt` files and waits until they are cleared
-* Cycles back to the player's turn
+* Cycles back to picking whose turn
 
 
 ### 🎨 Java (UI & Control Layer)
 
-* JavaFX builds the **starting menu** and **rules screen** using `.fxml` files
+* JavaFX builds the **starting menu**, **rules screen**, **maingame screen** and **end screen** using `.fxml` files
 * Launches the compiled **C++ process**
 * Waits for files to be ready and safely refreshes the UI (multithreading handled correctly)
 * During the hero's turn:

@@ -73,7 +73,7 @@ vector<Card> initializeCards() {
     Card jokerCard("joker", "rare card increasing everything by a little",0.2,0,10,10,10);
     Card goldJokerCard("goldJoker", "very rare card increasing everything by a lot",0.05,0,20,20,20);
     Card gamblerCard("gambler", "rare card power increasing power and speed but hitting a little",0.3,10,0,10,5);
-    Card mysteryCard("mystery", "card with hidden meaning",0,5,0,12,5);
+    //Card mysteryCard("mystery", "card with hidden meaning",0,5,0,12,5); no image for this....
     cards.push_back(mysteryCard);
     cards.push_back(gamblerCard);
     cards.push_back(goldJokerCard);

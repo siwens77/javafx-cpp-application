@@ -108,15 +108,13 @@ public class Controller {
             "whosturn.txt",
             "gameover.txt",
             "cards.txt",
-            //"clickedCard.tmp",
-            //"clickedCat.tmp"
+            "clickedCard.tmp",
+            "clickedCat.tmp"
         };
 
         for (String filePath : files) {
             File file = new File(filePath);
-            if(!file.delete()){
-                System.err.println("FILE FAILED TO BE DELETED: "+ filePath);
-            }
+            file.delete();
         }
     }
 

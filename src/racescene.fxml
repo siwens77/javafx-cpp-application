@@ -66,7 +66,7 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <Button fx:id="closeButton" defaultButton="true" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeB" prefHeight="60.0" prefWidth="60.0" styleClass="closeB" stylesheets="@resources/style.css" text="🐾" />
+                              <Button fx:id="closeButton" defaultButton="true" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#closeB" prefHeight="60.0" prefWidth="60.0" styleClass="closeB" stylesheets="@resources/style.css" text="X" />
                               <VBox layoutX="10.0" layoutY="220.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="802.0">
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="37.0" prefWidth="802.0" spacing="80.0" stylesheets="@resources/style.css">

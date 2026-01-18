@@ -132,12 +132,16 @@
     -fx-pref-height: 2em;
     -fx-background-radius: 50%;
     -fx-cursor: hand;
+    -fx-font-family: "Comic Sans MS", "Verdana", sans-serif;
+    -fx-font-weight: bold;
 }
 
 
 .closeB:hover {
     -fx-background-color: 
     radial-gradient(center 50% 50%, radius 100%, #f2cb07, #d8af4f);
+    -fx-font-family: "Comic Sans MS", "Verdana", sans-serif;
+    -fx-font-weight: bold;
 }
 
 

@@ -18,7 +18,7 @@
                <children>
                   <AnchorPane fx:id="scenePane" maxHeight="578.0" maxWidth="800.0" minHeight="578.0" minWidth="800.0" style="-fx-background-color: #80AB73;" styleClass="bodybg1" stylesheets="@resources/style.css" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#closeB" styleClass="closeB" stylesheets="@resources/style.css" text="🐾" />
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#closeB" styleClass="closeB" stylesheets="@resources/style.css" text="X" />
                         <Button fx:id="PlayB" alignment="CENTER" layoutX="427.0" layoutY="291.0" mnemonicParsing="false" onAction="#PlayB" prefHeight="130.0" prefWidth="205.0" styleClass="button-19" stylesheets="@resources/style.css" text="PLAY" textOverrun="CLIP">
                            <font>
                               <Font name="Monaspace Argon Regular" size="59.0" />

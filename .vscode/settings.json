@@ -2,7 +2,7 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-    "/Users/krzysztofnowak/javafx-sdk-25.0.1/lib/*.jar",
+    "YOUR_PATH_TO_JAVAFX/lib*.jar",
     "lib/*.jar"
     ]
 }

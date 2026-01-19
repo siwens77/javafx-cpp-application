@@ -20,6 +20,7 @@ A turn-based strategy card-game where heroic cat face off against enemies
 
    * `run.sh`
    * `unittests/test2.sh`
+   * `.vscode/settings.json`
 
 2. Make scripts executable:
 

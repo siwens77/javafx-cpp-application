@@ -8,8 +8,8 @@ A turn-based strategy card-game where heroic cat face off against enemies
 
 ### Requirements
 
-* **JavaFX**: minimum version **25.x**
-* **Java (JDK)**: minimum version **25**
+* **JavaFX**: version **25.x**
+* **Java (JDK)**: version **25**
 * **g++**: minimum version **7.0**
 
 ---

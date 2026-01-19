@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JAVAFX_PATH="/Users/krzysztofnowak/javafx-sdk-25.0.1"/lib
+JAVAFX_PATH=PATH_TO_JAVAFX/lib
 
 # === Create bin directory if it doesn't exist ===
 mkdir -p bin

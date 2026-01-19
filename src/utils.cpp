@@ -62,17 +62,17 @@ void clearFiles() {
 vector<Card> initializeCards() {
     vector<Card> cards;
     //Card(name, description, probability, hit, heal, power, speed)
-    Card hitCard("hit", "attack card - low damage", 1, 5, 0, 0,0);
+    Card hitCard("hit", "attack card - low damage", 1.5, 5, 0, 0,0);
     Card goldHitCard("goldHit", "attack card - high damage", 0.2, 12, 0, 0,0);
     Card healCard("heal" ,"healing card - low heal", 1,0,10,0,0);
-    Card goldHealCard("goldHeal", "heal card - greater heal", 0.2,0,20,0,0); 
-    Card powerCard("power", "power card - low increase", 1,0,0,15,0);
-    Card goldPowerCard("goldPower", "power card - greater increase", 0.2,0,0,20,0);
-    Card speedCard("speed", "speed card - small increase of turn chance", 1,0,0,0,10);
-    Card goldSpeedCard("goldSpeed", "speed card - greater increase of turn chance", 0.2,0,0,0,20);
-    Card jokerCard("joker", "joker card - low total increase",0.2,0,10,10,10);
-    Card goldJokerCard("goldJoker", "joker card - greater total increase",0.05,0,20,20,20);
-    Card gamblerCard("gambler", "gambler card - sacrifice health for power and speed",0.1,10,0,10,5);
+    Card goldHealCard("goldHeal", "heal card - greater heal", 0.1,0,20,0,0); 
+    Card powerCard("power", "power card - low increase", 0.5,0,0,15,0);
+    Card goldPowerCard("goldPower", "power card - greater increase", 0.05,0,0,20,0);
+    Card speedCard("speed", "speed card - small increase of turn chance", 0.7,0,0,0,10);
+    Card goldSpeedCard("goldSpeed", "speed card - greater increase of turn chance", 0.1,0,0,0,20);
+    Card jokerCard("joker", "joker card - low total increase",0.05,0,10,10,10);
+    Card goldJokerCard("goldJoker", "joker card - greater total increase",0.005,0,20,20,20);
+    Card gamblerCard("gambler", "gambler card - sacrifice health for power and speed",0.05,10,0,10,5);
     Card mysteryCard("mystery", "card with hidden meaning",0,5,0,12,5); 
     cards.push_back(mysteryCard);
     cards.push_back(gamblerCard);

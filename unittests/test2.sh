@@ -1,6 +1,6 @@
 #!/bin/bash
 
-JAVAFX_PATH="yourPath"/lib
+JAVAFX_PATH=PATH_TO_JAVAFX/lib
 JUNIT_PATH="lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar"
 
 mkdir -p bin

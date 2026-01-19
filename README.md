@@ -14,9 +14,9 @@ A turn-based strategy card-game where heroic cat face off against enemies
 
 ---
 
-### macOS Setup
+### macOS and Linux Setup
 
-1. Paste the location of your **JavaFX** folder into `JAVAFX_PATH` in:
+1. Paste the location of your **JavaFX/lib** folder into `JAVAFX_PATH` in:
 
    * `run.sh`
    * `unittests/test2.sh`
